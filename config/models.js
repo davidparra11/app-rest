@@ -27,8 +27,6 @@ module.exports.models = {
   * See http://sailsjs.org/#!/documentation/concepts/ORM/model-settings.html  *
   *                                                                          *
   ***************************************************************************/
-  migrate: 'safe',
-  connection: 'mongoProduction',
-  autoCreatedAt: false,
-  autoUpdatedAt: false
+  migrate: 'drop'
+
 };

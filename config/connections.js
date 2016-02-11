@@ -59,7 +59,7 @@ module.exports.connections = {
   someMongodbServer: {
     adapter: 'sails-mongo',
     host: 'localhost',
-      port: 27017
+    port: 27017,
     // user: 'username',
     // password: 'password',
     // database: 'your_mongo_db_name_here'
@@ -80,7 +80,7 @@ module.exports.connections = {
     user: 'YOUR_POSTGRES_USER',
     password: 'YOUR_POSTGRES_PASSWORD',
     database: 'YOUR_POSTGRES_DB'
-  },
+  }
 
 
   /***************************************************************************
@@ -88,9 +88,5 @@ module.exports.connections = {
   * More adapters: https://github.com/balderdashy/sails                      *
   *                                                                          *
   ***************************************************************************/
-  mongoProduction: {
-      adapter: 'sails-mongo',
-      url: process.env.MONGODB_URI, //|| 'mongodb://localhost:27017/prueba',
-      schema: true
-  }
+
 };

@@ -7,41 +7,8 @@
 
 module.exports = {
 
-    //connection : 'mongoProduction',
-    tableName: 'user',
+  attributes: {
 
-    attributes: {
-        username: {
-            type: 'string',
-            unique: true
-        },
-        email: {
-            type: "email",
-            unique: true
-        },
-        telephone: {
-            type: 'string',
-            unique: true
-        },
-        password: {
-            type: 'string',
-            required: true,
-            columnName: 'encrypted_password'
-        },
-        firstName: {
-            type: 'string'
-        },
-        lastName: {
-            type: 'string'
-        },
-        gravatar: {
-            type: "string"
-        },
-        contacts: {
-            type: "json"
-        },
-        active: {
-            type: 'boolean'
-        }
-    }
+  }
 };
+
