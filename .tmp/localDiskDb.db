@@ -2,15 +2,103 @@
   "data": {
     "user": [
       {
-        "name": "yulian",
-        "createdAt": "2016-02-09T04:17:52.346Z",
-        "updatedAt": "2016-02-09T04:17:52.346Z",
-        "id": 1
+        "username": "david",
+        "password": "pereira",
+        "admin": false,
+        "active": true,
+        "createdAt": "2016-02-12T21:02:18.665Z",
+        "updatedAt": "2016-02-12T21:02:18.665Z",
+        "id": 4
       },
       {
-        "createdAt": "2016-02-09T04:20:38.082Z",
-        "updatedAt": "2016-02-09T04:20:38.082Z",
-        "id": 2
+        "username": "pedro",
+        "password": "pereira",
+        "admin": false,
+        "active": true,
+        "createdAt": "2016-02-12T21:02:30.807Z",
+        "updatedAt": "2016-02-12T21:02:30.807Z",
+        "id": 5
+      },
+      {
+        "username": "daniel",
+        "password": "pereira",
+        "admin": false,
+        "active": true,
+        "createdAt": "2016-02-12T21:08:52.687Z",
+        "updatedAt": "2016-02-12T21:08:52.687Z",
+        "id": 6
+      },
+      {
+        "username": "daniel",
+        "password": "pereira",
+        "firstname": "eduardo",
+        "admin": false,
+        "active": true,
+        "id": 7
+      }
+    ],
+    "our_users": [
+      {
+        "username": "daniel",
+        "firstname": "eduardo",
+        "admin": false,
+        "active": true,
+        "phoneNumber": "111-222-3333",
+        "encrypted_password": "pereira"
+      },
+      {
+        "username": "daniel",
+        "firstname": "eduardo",
+        "admin": false,
+        "active": true,
+        "phoneNumber": "111-222-3333",
+        "encrypted_password": "pereira"
+      },
+      {
+        "username": "daniel",
+        "firstname": "eduardo",
+        "email": "david@h.com",
+        "admin": false,
+        "active": true,
+        "phoneNumber": "111-222-3333",
+        "encrypted_password": "pereira"
+      },
+      {
+        "username": "daniel",
+        "firstname": "eduardo",
+        "email": "david@h.com",
+        "admin": false,
+        "active": true,
+        "phoneNumber": "111-222-3333",
+        "encrypted_password": "pereira"
+      },
+      {
+        "username": "daniel",
+        "firstname": "eduardo",
+        "email": "david@h.com",
+        "admin": false,
+        "active": true,
+        "phoneNumber": "111-222-3333",
+        "encrypted_password": "pereira"
+      },
+      {
+        "username": "camilo",
+        "firstname": "eduardo",
+        "email": "david@h.com",
+        "admin": false,
+        "active": true,
+        "phoneNumber": "111-222-3333",
+        "encrypted_password": "pereira"
+      },
+      {
+        "username": "david",
+        "email": "hash@gmail.com",
+        "firstname": "pedro",
+        "admin": false,
+        "active": true,
+        "phoneNumber": "111-222-3333",
+        "encrypted_password": "pereira",
+        "the_primary_key": 1
       }
     ]
   },
@@ -21,18 +109,49 @@
         "autoIncrement": true,
         "primaryKey": true,
         "unique": true
+      }
+    },
+    "our_users": {
+      "username": {
+        "type": "string"
       },
-      "createdAt": {
-        "type": "datetime"
+      "phoneNumber": {
+        "type": "string",
+        "primaryKey": true,
+        "unique": true,
+        "defaultsTo": "111-222-3333",
+        "size": 15
       },
-      "updatedAt": {
-        "type": "datetime"
+      "firstName": {
+        "type": "string"
+      },
+      "lastName": {
+        "type": "string"
+      },
+      "email": {
+        "type": "string",
+        "unique": true
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "the_primary_key": {
+        "type": "integer",
+        "unique": true,
+        "primaryKey": true,
+        "autoIncrement": true
+      },
+      "encrypted_password": {
+        "type": "string"
       }
     }
   },
   "counters": {
     "user": {
-      "id": 2
+      "id": 7
+    },
+    "our_users": {
+      "the_primary_key": 1
     }
   }
 }
