@@ -13,7 +13,7 @@ module.exports = {
   attributes: {
 
     _id: {
-      type: 'integer',
+      type: 'string',
       unique: true,
       primaryKey: true,
       columnName: 'the_primary_key',
@@ -21,37 +21,59 @@ module.exports = {
     },
 
     username :{
-
   	 type: 'string',
-  	 required: true
+  	 required: true,
+     unique: true
   	},
+
     phoneNumber: {
       type: 'string',
       primaryKey: true,
       defaultsTo: '111-222-3333',
-      size: 15     
-
+      size: 15,
+      unique: true     
     },
-    password: {
+
+    encryptedPassword: {
+      type: 'string',
+      required: true
+    },
+
+  /*  password: {
       type: 'string',
       required: true,
       columnName: 'encrypted_password'
     },
+*/
     firstName: {
-      type: 'string'
+      type: 'string',
+       defaultsTo: ''
     },
+
     lastName: {
-      type: 'string'
+      type: 'string',
+      defaultsTo: ''
     },
     email: {
       type: 'string',
       email: true,
-      unique: true
+      unique: true,
+      required: true
+
     },
   	active : {
   		type : 'boolean'
 
-  	}
+  	},
+    
+
+    // The timestamp when the the user last logged in
+    // (i.e. sent a username and password to the server)
+    lastLoggedIn: {
+      type: 'date',
+      required: true,
+      defaultsTo: new Date(0)
+    }
   }
 };
 
