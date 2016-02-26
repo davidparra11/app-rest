@@ -57,7 +57,7 @@ module.exports.routes = {
     action    : 'findAll'
   },
  // crea un usuario con todos los atributos que estan establecidos en el modelo User
-  'post /users/:username': {
+  'post /create/': {
     controller: 'UserController',
     action    : 'create'
   },
@@ -82,7 +82,7 @@ module.exports.routes = {
     action    : 'statistic'
   },
 
-  'POST /signup': 'UserController.signup',
+  //'POST /signup': 'UserController.signup',
   //'PUT /login': 'UserController.loginuser'
 
 
