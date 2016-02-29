@@ -75,12 +75,7 @@ module.exports.routes = {
   'put /user/:username': {
     controller: 'UserController',
     action    : 'update'
-  },
-  // estadisticas generales 
-  'get /statistics/users/': {
-    controller: 'UserController',
-    action    : 'statistic'
-  },
+  }
 
   //'POST /signup': 'UserController.signup',
   //'PUT /login': 'UserController.loginuser'
