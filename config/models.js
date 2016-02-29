@@ -27,6 +27,17 @@ module.exports.models = {
   * See http://sailsjs.org/#!/documentation/concepts/ORM/model-settings.html  *
   *                                                                          *
   ***************************************************************************/
-  migrate: 'drop'
+  migrate    : 'safe',             //safe - alter  - drop  
+    //connection : 'mongoProduction',
+    //connection : 'productionPosgrest',
+    //schema     : false,             // habilita el uso de esquemas en DB
+
+    /* 
+    Por defecto sails busca y crea con estos campos, asi que es bueno deshabilitarnos 
+    si se trabaja con una DB que no ha sido creada por completo con el ORM
+    */
+    autoCreatedAt   : false,
+    autoUpdatedAt   : false
+
 
 };
