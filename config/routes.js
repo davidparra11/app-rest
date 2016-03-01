@@ -34,7 +34,7 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
-  }
+  },
 
   /***************************************************************************
   *                                                                          *
@@ -45,5 +45,43 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
+
+  //recursos para los usuarios
+  'get /user/:username': {
+    controller: 'UserController',
+    action    : 'find'
+  },
+    //obtiene todos las personas agregadas a la base de datos 
+  'get /users/': {
+    controller: 'UserController',
+    action    : 'findAll'
+  },
+ // crea un usuario con todos los atributos que estan establecidos en el modelo User
+  'post /create/': {
+    controller: 'UserController',
+    action    : 'create'
+  },
+// metodo para loguear el usuario
+  'post /login/': {
+    controller: 'UserController',
+    action    : 'login'
+  },
+  // elimina el usuario ingresado por su username
+  'delete /users/:username': {
+    controller: 'UserController',
+    action    : 'delete'
+  },
+  // actualiza la persona buscandola por su username
+  'put /user/:username': {
+    controller: 'UserController',
+    action    : 'update'
+  }
+
+  //'POST /signup': 'UserController.signup',
+  //'PUT /login': 'UserController.loginuser'
+
+
+
+
 
 };
