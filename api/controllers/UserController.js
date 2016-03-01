@@ -195,6 +195,21 @@ module.exports = {
     },
 
 
+    find: function(req,res){ 
+        User.find({username: req.param('username') })
+            .exec(function(error, user) {
+                    if (error){
+                        sails.log.error({"code":404,"response":"ERROR","method":"find", "controller":"User"});
+                        return res.send(404, {"message":"Error to get user","data":error});
+                     }
+                     else{
+                        sails.log.info({"code":200,"response":"OK","method":"find", "controller":"User"});
+                        return res.send(200, {"message": "User data","data":[user[0]]});
+                    }
+            });
+     },  
+
+
     delete: function (req, res) {
         User.find({_id : req.param('_id')})
             .exec(function (error, exist) {
