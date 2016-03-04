@@ -195,19 +195,33 @@ module.exports = {
     },
 
 
+    find: function(req,res){ 
+        User.find({username: req.param('username') })
+            .exec(function(error, user) {
+                    if (error){
+                        sails.log.error({"code":404,"response":"ERROR","method":"find", "controller":"User"});
+                        return res.send(404, {"message":"Error to get user","data":error});
+                     }
+                     else{
+                        sails.log.info({"code":200,"response":"OK","method":"find", "controller":"User"});
+                        return res.send(200, {"message": "User data","data":[user[0]]});
+                    }
+            });
+     },  
+
+
     delete: function (req, res) {
-        User.find({username: req.param('username')})
+        User.find({_id : req.param('_id')})
             .exec(function (error, exist) {
                 if (error) {
                     sails.log.error({"code": 404, "response": "ERROR", "method": "delete", "controller": "User"});
-                    return res.send({
-                        "code": 404,
+                    return res.send(404, {
                         "message": "Error to get user(error al encontrar a este usuario en la base de datos)",
                         "data": error
                     });
                 }
                 if (exist.length != 0) {
-                    User.destroy({username: req.param('username')})
+                    User.destroy({_id: req.param('_id')})
                         .exec(function (error, user) {
                             if (error) {
                                 sails.log.error({
@@ -222,8 +236,7 @@ module.exports = {
                                 });
                             }
                             else {
-                                sails.log.info({
-                                    "code": 200,
+                                sails.log.info(200, {
                                     "response": "OK",
                                     "method": "delete",
                                     "controller": "User"
@@ -249,16 +262,16 @@ module.exports = {
     
 
     update: function (req, res) {
-        if (!req.param('username')) {
+        if (!req.param('_id')) {
             sails.log.info({"code": 400, "response": "WARNING", "method": "update", "controller": "User"});
-            return res.send({"code": 400, "message": 'parámetro invalido', "data": []});   // hace la verificacion con username pero podria se conn
+            return res.send({"code": 400, "message": 'invalid parameter', "data": []});   
         }
         else {
-            User.find({username: req.param('username')}) ///verificando si el usuario existe
+            User.find({_id: req.param('_id')}) ///verificando si el usuario existe
                 .exec(function (error, user) {
                     if (user.length != 0) {
                         if (exist.length != 0) {
-                            User.update({username: req.param('username')}, req.allParams())
+                            User.update({username: req.param('_id')}, req.allParams())
                                 .exec(function (error, user) {
                                     if (error) {
                                         sails.log.error({
@@ -269,7 +282,7 @@ module.exports = {
                                         });
                                         return res.send({
                                             "code": 404,
-                                            "message": "Error updating person (error al actualizar a la persona",
+                                            "message": "Error updating person (error al actualizar a la persona)",
                                             "data": error
                                         });
                                     }
