@@ -67,12 +67,12 @@ module.exports.routes = {
     action    : 'login'
   },
   // elimina el usuario ingresado por su username
-  'delete /users/:username': {
+  'delete /users/:_id': {
     controller: 'UserController',
     action    : 'delete'
   },
   // actualiza la persona buscandola por su username
-  'put /user/:username': {
+  'put /users/:_id': {
     controller: 'UserController',
     action    : 'update'
   }
