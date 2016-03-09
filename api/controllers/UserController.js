@@ -124,7 +124,7 @@ module.exports = {
                         User.find({username: req.param('username')})
                             .exec(function (error, exist) {
                                 if (error) {
-                                    sails.log.error({404,
+                                    sails.log.error(404, {
                                         "response": "ERROR",
                                         "method": "signup",
                                         "controller": "User"
