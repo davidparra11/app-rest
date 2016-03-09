@@ -104,8 +104,7 @@ module.exports = {
             // An unexpected error occurred.
             error: function (err) {
                 sails.log.error({"code": 404, "response": "ERROR", "method": "create", "controller": "User"});
-                return res.send({
-                    "code": 404,
+                return res.send(404, {
                     "message": "Error to get user",
                     "data": err
                 });
@@ -125,14 +124,13 @@ module.exports = {
                         User.find({username: req.param('username')})
                             .exec(function (error, exist) {
                                 if (error) {
-                                    sails.log.error({
-                                        "code": 404,
+                                    sails.log.error({404,
                                         "response": "ERROR",
                                         "method": "signup",
                                         "controller": "User"
                                     });
                                     return res.send(404, {
-                                        "message": "Error to get user(error al intentar encontrar el usuario)",
+                                        "message": "Error creating user",
                                         "data": error
                                     });
                                 }
