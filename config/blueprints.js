@@ -158,10 +158,5 @@ module.exports.blueprints = {
   ****************************************************************************/
 
   // defaultLimit: 30,
-  migrate: 'safe',
-  connections:'mongoProduction',
-  autoCreateAt:false,
-  autoUpdateAt:false
-
 
 };

@@ -84,7 +84,7 @@ module.exports.connections = {
 
 mongoProduction: {
     adapter: 'sails-mongo',
-    url: 'mongodb://placeuser:12345678@52.33.133.243:27017/place',
+    url:MONGODB_URI,
     schema : true
 },
 
