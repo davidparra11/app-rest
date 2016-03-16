@@ -87,6 +87,14 @@ mongoProduction: {
     url: process.env.MONGOLAB_URI,
     schema : true
 },
+  mongodb: {
+    adapter   : 'sails-mongo',
+    host      : '52.33.133.243',
+    port      : 27017,
+    user      : 'placeuser',
+    password  : '12345678',
+    database  : 'place'
+  },
 
 
 
