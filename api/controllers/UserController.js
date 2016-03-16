@@ -44,7 +44,7 @@ module.exports = {
                                 sails.log.info({"code": 404, "response": "error when compare both password", "method": "login", "controller": "User"});
                                 return res.send(404, {
                                     "message": "error when compare both password.",
-                                    "data": [user[0].id]
+                                    "data": [{id: user[0].id}]
                                 });
 
                             },
@@ -52,7 +52,7 @@ module.exports = {
                             success: function () {
                                 return res.send(200, {
                                     message: "User data retrieved.",
-                                    "data": [user[0].id]
+                                    "data": [{id: user[0].id}]
                                 });
                             },
                         });
@@ -124,7 +124,7 @@ module.exports = {
                         User.find({username: req.param('username')})
                             .exec(function (error, exist) {
                                 if (error) {
-                                    sails.log.error({404,
+                                    sails.log.error(404, {
                                         "response": "ERROR",
                                         "method": "signup",
                                         "controller": "User"
