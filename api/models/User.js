@@ -65,6 +65,12 @@ module.exports = {
   		type : 'boolean'
 
   	},
+//array of tokens.
+    friends : {
+      type: 'array', //or it could be an object, depends of the structure when we define it
+      defaultsTo: '',
+
+    },
     
 
     // The timestamp when the the user last logged in

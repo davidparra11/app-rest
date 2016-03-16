@@ -75,12 +75,31 @@ module.exports.routes = {
   'put /users/:_id': {
     controller: 'UserController',
     action    : 'update'
-  }
+  },
 
   //'POST /signup': 'UserController.signup',
   //'PUT /login': 'UserController.loginuser'
 
 
+
+
+
+  // recursos para la pasarela de registro (RegissterController)
+
+  'put /phoneNumber/': {
+    controller: 'RegisterController',
+    action: 'update'
+  },
+
+
+
+
+  // recursos para los mensajes (MessageController)
+
+  'post /messages/': {
+    controller: 'MessageController',
+    action: 'sendMyFriends'
+  }
 
 
 

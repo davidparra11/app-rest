@@ -23,7 +23,7 @@ module.exports = {
                     if (user[0] == null) {
                         sails.log.info(403, {"response": "Not Found", "method": "login", "controller": "User"});
                         return res.send(403, {
-                            "message": "not found informacion about this person.",
+                            "message": "not found information about this person.",
                             "data": user
                         });
                         
@@ -105,7 +105,7 @@ module.exports = {
             error: function (err) {
                 sails.log.error({"code": 404, "response": "ERROR", "method": "create", "controller": "User"});
                 return res.send(404, {
-                    "message": "Error to get user",
+                    "message": "Error when the pass has benn encrypted",
                     "data": err
                 });
                 //return res.negotiate(err);
@@ -121,7 +121,7 @@ module.exports = {
                     success: function (gravatarUrl) {
                         // Create a User with the params sent from
                         // the sign-up form --> signup.ejs
-                        User.find({username: req.param('username')})
+                        User.find({email: req.param('username')})//changed usernaame by email property
                             .exec(function (error, exist) {
                                 if (error) {
                                     sails.log.error(404, {
@@ -137,12 +137,12 @@ module.exports = {
                                 if (exist.length == 0) {
                                     User.create({
                                             username: req.param('username'),
-                                            lastName: req.param('lastName'),
-                                            firstName: req.param('firstName'),
+                                            //lastName: req.param('lastName'),
+                                            //firstName: req.param('firstName'),
                                             email: req.param('email'),
                                             encryptedPassword: encryptedPassword,
                                             lastLoggedIn: new Date(),
-                                            gravatarUrl: gravatarUrl
+                                            //gravatarUrl: gravatarUrl
                                         })
                                         .exec(function (error, user) {
                                             if (error) {
@@ -280,7 +280,7 @@ module.exports = {
                                         });
                                         return res.send({
                                             "code": 404,
-                                            "message": "Error updating person (error al actualizar a la persona)",
+                                            "message": "Error updating person ",
                                             "data": error
                                         });
                                     }
