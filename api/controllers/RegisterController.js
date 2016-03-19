@@ -6,7 +6,7 @@ module.exports = {
  //update mobile number.
     update: function (req, res) {
 
-        User.find({_id: req.param('_id')})//changed usernaame by email property
+        User.find({_id: req.param('_id')})//changed username by _id property
             .exec(function (error, exist) {
                 if (error) {
                     sails.log.error(404, {

@@ -65,7 +65,7 @@ module.exports = {
   		type : 'boolean'
 
   	},
-//array of tokens.
+//array of objects, person and tokens.
     friends : {
       type: 'array', //or it could be an object, depends of the structure when we define it
       defaultsTo: '',
