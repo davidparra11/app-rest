@@ -5,7 +5,7 @@ var PusherService = require("sails-service-pusher");
 
 module.exports =
     PusherService('android', {
-            device: ["cEyLywsLzAs:APA91bFtxqP-ugT6KH071q1IQOjSnwWfX9s3uzEOui_Vyq43qrVGfCSOpT5jHG9sQW7a-O8ssMBrru0S04gWV50t80h2KNqGGZ_QUM016-uC2rz1fB4y8nIl_LADOXr-iO_JW2hMxe68","dF7981c0t18:APA91bFqIhdCtDiPQNjPq-bV5cbMWsBZI_shu4TtpiSHJ12iWebPF_B3ZDGN78x05m6TajUjBv_y-ArYDIj16GIbO9IR-hIXDeU46-ong0JsYVqcMeYAii1mX9XDJfmNeIU9PFr9kq3c","APA91bHE6wWiEn5Um9YKWZ-DRHC5MgHISYT3JfmI5FJ-_w9TO1LJ4XkQA613YlNkDFfXm5ZWmkE3oKn9GvUml9qdWnqKxqGwB9x0JEDb51Rog-K6XuNCjtLKB4opEFR-ytfQPOXTbXFR"], // Array of string with device tokens
+            device: [],
             provider: {
                 apiKey: 'AIzaSyD3PB6dW6SHpK2_WF1foQKoUHi2aopgTmI', // Your Google Server API Key
                 maxSockets: 12, // Max number of sockets to have open at one time
@@ -28,3 +28,5 @@ module.exports =
 
     //llave tokens subscribe
  //   dF7981c0t18:APA91bFqIhdCtDiPQNjPq-bV5cbMWsBZI_shu4TtpiSHJ12iWebPF_B3ZDGN78x05m6TajUjBv_y-ArYDIj16GIbO9IR-hIXDeU46-ong0JsYVqcMeYAii1mX9XDJfmNeIU9PFr9kq3c"]
+
+ //            device: ["cEyLywsLzAs:APA91bFtxqP-ugT6KH071q1IQOjSnwWfX9s3uzEOui_Vyq43qrVGfCSOpT5jHG9sQW7a-O8ssMBrru0S04gWV50t80h2KNqGGZ_QUM016-uC2rz1fB4y8nIl_LADOXr-iO_JW2hMxe68","dF7981c0t18:APA91bFqIhdCtDiPQNjPq-bV5cbMWsBZI_shu4TtpiSHJ12iWebPF_B3ZDGN78x05m6TajUjBv_y-ArYDIj16GIbO9IR-hIXDeU46-ong0JsYVqcMeYAii1mX9XDJfmNeIU9PFr9kq3c","APA91bHE6wWiEn5Um9YKWZ-DRHC5MgHISYT3JfmI5FJ-_w9TO1LJ4XkQA613YlNkDFfXm5ZWmkE3oKn9GvUml9qdWnqKxqGwB9x0JEDb51Rog-K6XuNCjtLKB4opEFR-ytfQPOXTbXFR"], // Array of string with device tokens
