@@ -28,7 +28,9 @@ module.exports.models = {
   *                                                                          *
   ***************************************************************************/
   migrate    : 'safe',             //safe - alter  - drop  
+
     connection : 'mongoProduction',
+
     //connection : 'productionPosgrest',
     //schema     : false,             // habilita el uso de esquemas en DB
 
