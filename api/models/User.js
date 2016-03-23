@@ -39,12 +39,7 @@ module.exports = {
       required: true
     },
 
-  /*  password: {
-      type: 'string',
-      required: true,
-      columnName: 'encrypted_password'
-    },
-*/
+
     firstName: {
       type: 'string',
        defaultsTo: ''
@@ -61,18 +56,28 @@ module.exports = {
       required: true
 
     },
-  	active : {
-  		type : 'boolean'
 
-  	},
-//array of objects, person and tokens.
-    friends : {
-      type: 'array', //or it could be an object, depends of the structure when we define it
-      defaultsTo: '',
+    token: {
+      type: 'string',
+      required: true,
+      unique: true,
+      defaultsTo: ''
 
     },
-    
+    subscriptions: {
+      collection: 'channel',
+      via: 'participants'
+    },
+    active : {
+      type : 'boolean'
 
+    },
+    /*  password: {
+     type: 'string',
+     required: true,
+     columnName: 'encrypted_password'
+     },
+     */
     // The timestamp when the the user last logged in
     // (i.e. sent a username and password to the server)
     lastLoggedIn: {
