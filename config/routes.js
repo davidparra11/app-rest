@@ -99,8 +99,13 @@ module.exports.routes = {
   'post /messages/': {
     controller: 'MessageController',
     action: 'sendMyFriends'
+  },
+ 
+// recursos para los grupos GCM (GroupController)
+
+  'post /group/': {
+    controller: 'GroupController',
+    action: 'sendMyGroup'
   }
-
-
 
 };

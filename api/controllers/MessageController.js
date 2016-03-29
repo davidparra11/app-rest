@@ -16,11 +16,13 @@ sendMyFriends: function send(req, res) {
         message: req.param('message') || 'mensaje de la notification',
           body: req.param('body') || 'mensaje de la notification'
 
+
       })
       .then(res.ok) //return res.send(200, {"message": "ok", "data": "ok"});
       .catch(res.negotiate); 
         //sails.log.error({"code": 200, "response": "ok", "method": "sendMyFriends", "controller": "MessageControler"});
 
+     
      
  }
     //key yahoo
