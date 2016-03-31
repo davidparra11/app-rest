@@ -1,6 +1,6 @@
 /**
  * Created by David  on 28/03/2016.
- */
+ 
 
  var gcm = require('node-gcm')
 
@@ -23,8 +23,9 @@ var message = new gcm.Message({
     restrictedPackageName: "somePackageName",
     dryRun: true,
     data: {
-        key1: 'message1',
-        key2: 'message2'
+        "operation": "create",
+   "notification_key_name": "cel_de_Pedro",
+   "registration_ids": ["4", "8", "15", "16", "23", "42"]
     },
     notification: {
         title: "Hello, World",
@@ -37,7 +38,7 @@ var message = new gcm.Message({
   if(err) console.error(err);
   else    console.log(response);
 });
-
+*/
 
 /*
     GroupGcmService
@@ -52,7 +53,8 @@ var message = new gcm.Message({
       .then(res.ok) //return res.send(200, {"message": "ok", "data": "ok"});
       .catch(res.negotiate); 
         //sails.log.error({"code": 200, "response": "ok", "method": "sendMyFriends", "controller": "MessageControler"});
-     */
+     
  }
     //key yahoo  
 }//AIzaSyBBh4ddPa96rQQNxqiq_qQj7sq1JdsNQUQ
+*/

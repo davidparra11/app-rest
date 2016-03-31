@@ -60,10 +60,15 @@ module.exports = {
     token: {
       type: 'string',
       required: true,
-      unique: true,
-      defaultsTo: ''
+      //unique: true,
+      defaultsTo: 'der'
 
     },
+
+
+
+
+
     subscriptions: {
       collection: 'channel',
       via: 'participants'

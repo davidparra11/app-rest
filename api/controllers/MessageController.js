@@ -9,12 +9,12 @@ sendMyFriends: function send(req, res) {
         }
 
     PusherService
-      .send('/topics/andres', {
+      .send('/topics/andres', { //andres by '+ req.param("to") same phonenumber
      //   message: 'This is a GCM Topic Message!'
 
        title: req.param('title') || 'titulp',
-        message: req.param('message') || 'mensaje de la notification',
-          body: req.param('body') || 'mensaje de la notification'
+        message: req.param('message') || 'mensaje de la notification'
+        //  body: req.param('body') || 'mensaje de la notification'
 
 
       })

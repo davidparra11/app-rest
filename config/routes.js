@@ -92,6 +92,11 @@ module.exports.routes = {
   },
 
 
+  'post /getfriends/': {
+    controller: 'RegisterController',
+    action: 'getFriends'
+  },
+
 
 
   // recursos para los mensajes (MessageController)
