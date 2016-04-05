@@ -82,9 +82,9 @@ module.exports = {
     getFriends: function (req, res) {
 
 
-        console.log(req.param("arrayAgenda"));
-        var ar = myfunc(req.param('arrayAgenda'));
-        console.log('myfunc' + ar);
+        
+        var ar = convertString(req.param('arrayAgenda'));
+        
         User.native(function (err, collection) {
             if (err) return res.serverError(err);
             collection.find({phoneNumber: {$in: ar}})  //req.param('arrayAgenda')['311','321']
@@ -129,6 +129,7 @@ module.exports = {
                             var text = [];
                             text.push(exist[i].phoneNumber);
                             console.log(text);
+                            return text;
                         }
 
                         return res.send(200, {
@@ -158,8 +159,8 @@ module.exports = {
 
 }
 
-
-function myfunc(data) {
+// Function that captures req.params Stings and return an array of charaacters
+function convertString(data) {
    
     arra = data.split("'")
     var texto = [];
@@ -169,7 +170,7 @@ function myfunc(data) {
         console.log('texto ' + texto);
     }
 
-    return texto
+    return texto;
 
 
 }

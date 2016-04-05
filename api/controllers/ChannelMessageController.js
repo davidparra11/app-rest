@@ -55,10 +55,8 @@ module.exports = {
                             title: channel.name,
                             body: sender.username + ": " + msg.msg
                         })
-                        .then(res.ok) //return res.send(200, {"message": "ok", "data": "ok"});
-                        .catch(res.negotiate); //sails.log("tried to push to " + channel.name + " participants...");
-                    //sails.log.error({"code": 200, "response": "ok", "method": "sendMyFriends", "controller": "MessageControler"});
-
+                        .then(res.ok)
+                        .catch(res.negotiate); 
 
                 })
             })
