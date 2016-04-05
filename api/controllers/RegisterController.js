@@ -83,10 +83,6 @@ module.exports = {
 
 
         console.log(req.param("arrayAgenda"));
-        var name = 'nombre';
-        var value = req.param("arrayAgenda");
-        //parameter = req.param.arrayAgenda;
-        // var doc = {String: Strings.fromString(parameter)}
         var ar = myfunc(req.param('arrayAgenda'));
         console.log('myfunc' + ar);
         User.native(function (err, collection) {
@@ -135,9 +131,14 @@ module.exports = {
                             console.log(text);
                         }
 
+                        return res.send(200, {
+                            "message": 'Ok',
+                            "data": [text]
+                        });
+
 
                         // Set up the Instance ID with you API key
-                        var instanceId = new gcm.InstanceId('YOUR_API_KEY_HERE');
+                        var instanceId = new gcm.InstanceId('AIzaSyC9Pg64djV4HP5JOHqFJVnGAXKJDY5xZRc');
 
                         // Subscribe many frieds tokens to a topic
                         instanceId.addToTopicNoRetry('current user number', ['SUBSCRIBER_TOKEN1', 'SUBSCRIBER_TOKEN2'], function (err, response) {
@@ -159,7 +160,7 @@ module.exports = {
 
 
 function myfunc(data) {
-    var array = []
+   
     arra = data.split("'")
     var texto = [];
     for (i = 0; i < arra.length; i++) {
