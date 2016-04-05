@@ -7,89 +7,86 @@
 
 module.exports = {
 
- tableName       : 'our_users',
+    tableName: 'our_users',
 
 
-  attributes: {
+    attributes: {
 
-    _id: {
-      type: 'string',
-      unique: true,
-      primaryKey: true,
-      columnName: 'the_primary_key',
-      autoIncrement: true
-    },
+        _id: {
+            type: 'string',
+            unique: true,
+            primaryKey: true,
+            columnName: 'the_primary_key',
+            autoIncrement: true
+        },
 
-    username :{
-  	 type: 'string',
-  	 required: true,
-     unique: true
-  	},
+        username: {
+            type: 'string',
+            required: true,
+            unique: true
+        },
 
-    phoneNumber: {
-      type: 'string',
-      primaryKey: true,
-      defaultsTo: '111-222-3333',
-      size: 15,
-      unique: true     
-    },
+        phoneNumber: {
+            type: 'string',
+            primaryKey: true,
+            defaultsTo: '111-222-3333',
+            size: 15,
+            unique: true
+        },
 
-    encryptedPassword: {
-      type: 'string',
-      required: true
-    },
-
-
-    firstName: {
-      type: 'string',
-       defaultsTo: ''
-    },
-
-    lastName: {
-      type: 'string',
-      defaultsTo: ''
-    },
-    email: {
-      type: 'string',
-      email: true,
-      unique: true,
-      required: true
-
-    },
-
-    token: {
-      type: 'string',
-      required: true,
-      //unique: true,
-      defaultsTo: 'der'
-
-    },
+        encryptedPassword: {
+            type: 'string',
+            required: true
+        },
 
 
+        firstName: {
+            type: 'string',
+            defaultsTo: ''
+        },
+
+        lastName: {
+            type: 'string',
+            defaultsTo: ''
+        },
+        email: {
+            type: 'string',
+            email: true,
+            unique: true,
+            required: true
+
+        },
+
+        token: {
+            type: 'string',
+            required: true,
+            //unique: true,
+            defaultsTo: 'der'
+
+        },
 
 
+        subscriptions: {
+            collection: 'channel',
+            via: 'participants'
+        },
+        active: {
+            type: 'boolean'
 
-    subscriptions: {
-      collection: 'channel',
-      via: 'participants'
-    },
-    active : {
-      type : 'boolean'
-
-    },
-    /*  password: {
-     type: 'string',
-     required: true,
-     columnName: 'encrypted_password'
-     },
-     */
-    // The timestamp when the the user last logged in
-    // (i.e. sent a username and password to the server)
-    lastLoggedIn: {
-      type: 'date',
-      required: true,
-      defaultsTo: new Date(0)
+        },
+        /*  password: {
+         type: 'string',
+         required: true,
+         columnName: 'encrypted_password'
+         },
+         */
+        // The timestamp when the the user last logged in
+        // (i.e. sent a username and password to the server)
+        lastLoggedIn: {
+            type: 'date',
+            required: true,
+            defaultsTo: new Date(0)
+        }
     }
-  }
 };
 

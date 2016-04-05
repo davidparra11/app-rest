@@ -12,34 +12,40 @@ module.exports = {
      */
     send: function send(req, res) {
 
-        if(!req.param("from") || !req.param("channel") || !req.param("msg")) {
+        if (!req.param("from") || !req.param("channel") || !req.param("msg")) {
             return res.send(400, "from/channel/msg Property Missing")
         }
 
         // Find the sender
-        User.findOne({where: {
-            _id: req.param("from")}
+        User.findOne({
+            where: {
+                _id: req.param("from")
+            }
         }, function (err, sender) {
             if (err) return res.negotiate(err);
-            if(!sender) return res.send(404, "Sender Does Not Exist");
+            if (!sender) return res.send(404, "Sender Does Not Exist");
 
             // Find the receiver channel
-            Channel.findOne({where: {
-                name: req.param("channel")
-            }}).populate("participants").exec(function (err, channel) {
-                if(err) return res.negotiate(err);
-                if(!channel) return res.send(404, "Channel Does Not Exist");
+            Channel.findOne({
+                where: {
+                    name: req.param("channel")
+                }
+            }).populate("participants").exec(function (err, channel) {
+                if (err) return res.negotiate(err);
+                if (!channel) return res.send(404, "Channel Does Not Exist");
 
                 ChannelMessage.create({
                     channel: channel,
                     from: sender,
                     msg: req.param("msg")
-                }, function(err, msg) {
+                }, function (err, msg) {
                     if (err) return res.negotiate(err);
                     if (!msg) return res.send(500);
 
                     sails.log(channel.participants);
-                    var tokens = channel.participants.map(function(a) {return a.token;});
+                    var tokens = channel.participants.map(function (a) {
+                        return a.token;
+                    });
                     //var tokens = channel.participants.token;
                     sails.log("Tokens: \n" + JSON.stringify(tokens, null, 2));
 

@@ -22,95 +22,90 @@
 
 module.exports.routes = {
 
-  /***************************************************************************
-  *                                                                          *
-  * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
-  * etc. depending on your default view engine) your home page.              *
-  *                                                                          *
-  * (Alternatively, remove this and add an `index.html` file in your         *
-  * `assets` directory)                                                      *
-  *                                                                          *
-  ***************************************************************************/
+    /***************************************************************************
+     *                                                                          *
+     * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
+     * etc. depending on your default view engine) your home page.              *
+     *                                                                          *
+     * (Alternatively, remove this and add an `index.html` file in your         *
+     * `assets` directory)                                                      *
+     *                                                                          *
+     ***************************************************************************/
 
-  '/': {
-    view: 'homepage'
-  },
+    '/': {
+        view: 'homepage'
+    },
 
-  /***************************************************************************
-  *                                                                          *
-  * Custom routes here...                                                    *
-  *                                                                          *
-  * If a request to a URL doesn't match any of the custom routes above, it   *
-  * is matched against Sails route blueprints. See `config/blueprints.js`    *
-  * for configuration options and examples.                                  *
-  *                                                                          *
-  ***************************************************************************/
+    /***************************************************************************
+     *                                                                          *
+     * Custom routes here...                                                    *
+     *                                                                          *
+     * If a request to a URL doesn't match any of the custom routes above, it   *
+     * is matched against Sails route blueprints. See `config/blueprints.js`    *
+     * for configuration options and examples.                                  *
+     *                                                                          *
+     ***************************************************************************/
 
-  //recursos para los usuarios
-  'get /user/:username': {
-    controller: 'UserController',
-    action    : 'find'
-  },
+    //recursos para los usuarios
+    'get /user/:username': {
+        controller: 'UserController',
+        action: 'find'
+    },
     //obtiene todos las personas agregadas a la base de datos 
-  'get /users/': {
-    controller: 'UserController',
-    action    : 'findAll'
-  },
- // crea un usuario con todos los atributos que estan establecidos en el modelo User
-  'post /create/': {
-    controller: 'UserController',
-    action    : 'create'
-  },
+    'get /users/': {
+        controller: 'UserController',
+        action: 'findAll'
+    },
+    // crea un usuario con todos los atributos que estan establecidos en el modelo User
+    'post /create/': {
+        controller: 'UserController',
+        action: 'create'
+    },
 // metodo para loguear el usuario
-  'post /login/': {
-    controller: 'UserController',
-    action    : 'login'
-  },
-  // elimina el usuario ingresado por su username
-  'delete /users/:_id': {
-    controller: 'UserController',
-    action    : 'delete'
-  },
-  // actualiza la persona buscandola por su username
-  'put /users/:_id': {
-    controller: 'UserController',
-    action    : 'update'
-  },
+    'post /login/': {
+        controller: 'UserController',
+        action: 'login'
+    },
+    // elimina el usuario ingresado por su username
+    'delete /users/:_id': {
+        controller: 'UserController',
+        action: 'delete'
+    },
+    // actualiza la persona buscandola por su username
+    'put /users/:_id': {
+        controller: 'UserController',
+        action: 'update'
+    },
 
-  //'POST /signup': 'UserController.signup',
-  //'PUT /login': 'UserController.loginuser'
-
-
+    //'POST /signup': 'UserController.signup',
+    //'PUT /login': 'UserController.loginuser'
 
 
+    // recursos para la pasarela de registro (RegissterController)
 
-  // recursos para la pasarela de registro (RegissterController)
-
-  'put /phoneNumber/': {
-    controller: 'RegisterController',
-    action: 'update'
-  },
-
-
-  'post /getfriends/': {
-    controller: 'RegisterController',
-    action: 'getFriends'
-  },
+    'put /phoneNumber/': {
+        controller: 'RegisterController',
+        action: 'update'
+    },
 
 
+    'post /getfriends/': {
+        controller: 'RegisterController',
+        action: 'getFriends'
+    },
 
-  // recursos para los mensajes (MessageController)
+    // recursos para los mensajes (MessageController)
 
-  'post /messages/': {
-    controller: 'MessageController',
-    action: 'sendMyFriends'
-  },
- 
+    'post /messages/': {
+        controller: 'MessageController',
+        action: 'sendMyFriends'
+    },
+
 // recursos para los grupos GCM (GroupController)
 
-  'post /group/': {
-    controller: 'GroupController',
-    action: 'sendMyGroup'
-  }
+    'post /group/': {
+        controller: 'GroupController',
+        action: 'sendMyGroup'
+    }
 
 };

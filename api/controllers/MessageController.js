@@ -3,28 +3,27 @@
  */
 module.exports = {
 //send data to actually  users´s friends.
-sendMyFriends: function send(req, res) {
-    if(!req.param("to") || !req.param("message") || !req.param("title")) {
+    sendMyFriends: function send(req, res) {
+        if (!req.param("to") || !req.param("message") || !req.param("title")) {
             return res.send(400, "from/msg Property Missing")
         }
 
-    PusherService
-      .send('/topics/andres', { //andres by '+ req.param("to") same phonenumber
-     //   message: 'This is a GCM Topic Message!'
+        PusherService
+            .send('/topics/andrestytytyt', { //andres by '+ req.param("to") same phonenumber
+                //   message: 'This is a GCM Topic Message!'
 
-       title: req.param('title') || 'titulp',
-        message: req.param('message') || 'mensaje de la notification'
-        //  body: req.param('body') || 'mensaje de la notification'
+                title: req.param('title') || 'titulp',
+                message: req.param('message') || 'mensaje de la notification'
+                //  body: req.param('body') || 'mensaje de la notification'
 
 
-      })
-      .then(res.ok) //return res.send(200, {"message": "ok", "data": "ok"});
-      .catch(res.negotiate); 
+            })
+            .then(res.ok) //return res.send(200, {"message": "ok", "data": "ok"});
+            .catch(res.negotiate);
         //sails.log.error({"code": 200, "response": "ok", "method": "sendMyFriends", "controller": "MessageControler"});
 
-     
-     
- }
+
+    }
     //key yahoo
 }//AIzaSyBBh4ddPa96rQQNxqiq_qQj7sq1JdsNQUQ
 
