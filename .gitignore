@@ -83,7 +83,7 @@ dump.rdb
 .rigging
 .waterline
 .sails
-.env
+#.env
 
 
 
