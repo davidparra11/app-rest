@@ -46,5 +46,8 @@
     "url": "git://github.com/hash/place-rest.git"
   },
   "author": "hash",
-  "license": ""
+  "license": "",
+  "devDependencies": {
+    "jshint": "^2.9.1"
+  }
 }

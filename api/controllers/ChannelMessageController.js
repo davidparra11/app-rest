@@ -13,7 +13,7 @@ module.exports = {
     send: function send(req, res) {
 
         if (!req.param("from") || !req.param("channel") || !req.param("msg")) {
-            return res.send(400, "from/channel/msg Property Missing")
+            return res.send(400, "from/channel/msg Property Missing");
         }
 
         // Find the sender
