@@ -29,8 +29,6 @@ module.exports = {
                     if (user[0] == null) {
                         utilidades.showLogs(403, "not found", method, controller, logsGlobal, 0);
                         utilidades.sendInfoFunc(403, "not found information about this person.", res, user);
-
-
                     } else {
                         // Compare a plaintext password attempt against an already-encrypted version.
                         Passwords.checkPassword({
@@ -149,13 +147,11 @@ module.exports = {
 
                                 }
                             });
-
                     }
                 });
             }
         });
     },
-
 
     find: function(req, res) {
         var method = "find";
@@ -170,15 +166,12 @@ module.exports = {
                 } else {
                     utilidades.showLogs(200, "OK", method, controller, logsGlobal, 0);
                     utilidades.sendInfoFunc(200, "User data", res, [user[0]]);
-
                 }
             });
     },
 
-
     unsubscribe: function(req, res) {
         var method = "unsubscribe";
-
         if (!req.param('_id')) {
             utilidades.showLogs(400, "WARNING", method, controller, logsGlobal, 0);
             utilidades.sendInfoFunc(400, "invalid parameter", res, []);
@@ -212,9 +205,7 @@ module.exports = {
                         utilidades.sendInfoFunc(404, "Id does not exist", res, []);
 
                     }
-
                 });
-
         }
     },
 
@@ -255,13 +246,11 @@ module.exports = {
             });
     },
 
-
     update: function(req, res) {
         var method = "update";
         if (!req.param('_id')) {
             utilidades.showLogs(400, "WARNING", method, controller, logsGlobal, 0);
             utilidades.sendInfoFunc(400, "invalid parameter", res, []);
-
         } else {
             User.find({
                     _id: req.param('_id')
@@ -283,7 +272,6 @@ module.exports = {
                                 } else {
                                     utilidades.showLogs(200, "OK", method, controller, logsGlobal, 0);
                                     utilidades.sendInfoFunc(200, "Update success", res, [user[0].id]);
-
                                 }
                             });
                     } else {
@@ -291,11 +279,8 @@ module.exports = {
                         utilidades.sendInfoFunc(400, "Id does not exist", res, []);
 
                     }
-
                 });
-
         }
-    }, //update
-
+    }, 
 
 };

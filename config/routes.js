@@ -82,23 +82,25 @@ module.exports.routes = {
         action: 'update'
     },
 
-    //'POST /signup': 'UserController.signup',
-    //'PUT /login': 'UserController.loginuser'
-
-
-    // recursos para la pasarela de registro (RegissterController)
-
+    // recursos para la pasarela de registro (RegisterController)
+    //actalizar numero de celular
     'put /phoneNumber/': {
         controller: 'RegisterController',
         action: 'update'
     },
-
 
     // recursos para los comparar los amigos de la agenda con nuestras bases de datos(RegisterController)
     'post /getfriends/': {
         controller: 'RegisterController',
         action: 'getFriends'
     },
+
+    // recursos para  actualizar el token de una persona en especifico.
+    'put /token/': {
+        controller: 'UpdateTokenController',
+        action: 'update'
+    },
+
 
  
 };

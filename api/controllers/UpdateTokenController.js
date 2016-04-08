@@ -6,7 +6,7 @@ var utilidades = require('../services/Utils'),
     controller = "UpdateController";
 
 module.exports = {
-    //update mobile number.
+    //update mobile number.  (recibe parametros id, token)
     update: function(req, res) {
         var method = "update";
         User.find({
@@ -16,7 +16,6 @@ module.exports = {
                 if (error) {
                     utilidades.showLogs(404, error, method, controller, logsGlobal, 1);
                     utilidades.sendInfoFunc(404, "Error finding user", res, error);
-
                 }
                 if (exist.length == 0) {
                     User.update({
@@ -32,8 +31,6 @@ module.exports = {
                                 utilidades.sendInfoFunc(200, "User already exist", res, [{
                                     id: exist.id
                                 }]);
-
-
                             }
                         });
                 } else {
@@ -42,7 +39,5 @@ module.exports = {
 
                 }
             });
-
-
     }
 }
