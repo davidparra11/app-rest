@@ -65,13 +65,9 @@ module.exports = {
 
         },
 
-
-        subscriptions: {
-            collection: 'channel',
-            via: 'participants'
-        },
         active: {
-            type: 'boolean'
+            type: 'boolean',
+            defaultsTo: 1
 
         },
         /*  password: {

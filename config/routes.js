@@ -61,17 +61,22 @@ module.exports.routes = {
         controller: 'UserController',
         action: 'create'
     },
-// metodo para loguear el usuario
+    // metodo para loguear el usuario
     'post /login/': {
         controller: 'UserController',
         action: 'login'
     },
     // elimina el usuario ingresado por su username
-    'delete /users/:_id': {
+    'delete /users/delete/:_id': {
         controller: 'UserController',
         action: 'delete'
     },
-    // actualiza la persona buscandola por su username
+    //desinscribe la persona de la applicacion
+    'put /users/unsubscribe/:_id': {
+        controller: 'UserController',
+        action: 'unsubscribe'
+    },
+    // actualiza la persona buscandola por su id
     'put /users/:_id': {
         controller: 'UserController',
         action: 'update'
@@ -89,23 +94,11 @@ module.exports.routes = {
     },
 
 
+    // recursos para los comparar los amigos de la agenda con nuestras bases de datos(RegisterController)
     'post /getfriends/': {
         controller: 'RegisterController',
         action: 'getFriends'
     },
 
-    // recursos para los mensajes (MessageController)
-
-    'post /messages/': {
-        controller: 'MessageController',
-        action: 'sendMyFriends'
-    },
-
-// recursos para los grupos GCM (GroupController)
-
-    'post /group/': {
-        controller: 'GroupController',
-        action: 'sendMyGroup'
-    }
-
+ 
 };
