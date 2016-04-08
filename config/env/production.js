@@ -19,11 +19,7 @@ module.exports = {
 
   models: {
      connection: 'mongoProduction'
-   },
-   push: {
-    gcm: '510296754641'
-  }
-
+   }
 
   /***************************************************************************
    * Set the port in the production environment to 80                        *

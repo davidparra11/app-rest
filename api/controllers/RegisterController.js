@@ -19,7 +19,6 @@ module.exports = {
                     if (error) {
                         utilidades.showLogs(404, "ERROR", method, controller, logsGlobal);
                         utilidades.sendInfoFunc(404, "User no exist", res, error);
-
                     }
                     if (exist.length == 0) {
                         utilidades.showLogs(404, "WARNING", method, controller, logsGlobal, logsGlobal);
