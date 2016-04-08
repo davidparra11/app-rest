@@ -5,7 +5,7 @@
 gcm = require('node-gcm-iid');
 var controller = "Registercontroller";
 var logsGlobal = 1;
-var utilidades = require('../services/Utils');
+var utils = require('../services/Utils');
 
 //make it just when the account has been verified with text message. params: (id, phoneNumber)
 module.exports = {
@@ -17,12 +17,12 @@ module.exports = {
                 }) //changed username by _id property
                 .exec(function(error, exist) {
                     if (error) {
-                        utilidades.showLogs(404, "ERROR", method, controller, logsGlobal);
-                        utilidades.sendInfoFunc(404, "User no exist", res, error);
+                        utils.showLogs(404, "ERROR", method, controller, logsGlobal);
+                        utils.sendInfoFunc(404, "User no exist", res, error);
                     }
                     if (exist.length == 0) {
-                        utilidades.showLogs(404, "WARNING", method, controller, logsGlobal, logsGlobal);
-                        utilidades.sendInfoFunc(404, "Error finding user", res, [{
+                        utils.showLogs(404, "WARNING", method, controller, logsGlobal, logsGlobal);
+                        utils.sendInfoFunc(404, "Error finding user", res, [{
                             id: exist.id
                         }]);
                     } else {
@@ -31,11 +31,11 @@ module.exports = {
                             }, req.param('phoneNumber'))
                             .exec(function(error, user) {
                                 if (error) {
-                                    utilidades.showLogs(404, "ERROR", method, controller, logsGlobal);
-                                    utilidades.sendInfoFunc(404, "Error updating phoneNumber", res, error);
+                                    utils.showLogs(404, "ERROR", method, controller, logsGlobal);
+                                    utils.sendInfoFunc(404, "Error updating phoneNumber", res, error);
                                 } else {
-                                    utilidades.showLogs(200, "OK", method, controller, logsGlobal);
-                                    utilidades.sendInfoFunc(200, "Update phoneNumber success.", res, [{
+                                    utils.showLogs(200, "OK", method, controller, logsGlobal);
+                                    utils.sendInfoFunc(200, "Update phoneNumber success.", res, [{
                                         id: user.id
                                     }]);
                                 }
@@ -60,14 +60,14 @@ module.exports = {
                     }) //req.param('arrayAgenda')['311','321']
                     .toArray(function(error, exist) {
                         if (error) {
-                            utilidades.showLogs(404, "ERROR", method, controller, logsGlobal);
-                            utilidades.sendInfoFunc(404, "Error finding users", res, error);
+                            utils.showLogs(404, "ERROR", method, controller, logsGlobal);
+                            utils.sendInfoFunc(404, "Error finding users", res, error);
                         }
                         if (exist.length == 0) {
                             console.log(exist);
 
-                            utilidades.showLogs(409, "WARNING", method, controller, logsGlobal);
-                            utilidades.sendInfoFunc(409, "Users no exist", res, [{
+                            utils.showLogs(409, "WARNING", method, controller, logsGlobal);
+                            utils.sendInfoFunc(409, "Users no exist", res, [{
                                 phoneNumber: exist
                             }]);
                         } else {
@@ -83,8 +83,8 @@ module.exports = {
                             }
                             console.log('getFriends'+friedsToDevices);
 
-                           utilidades.showLogs(200, "OK", method, controller, logsGlobal, 0);
-                           utilidades.sendInfoFunc(200, "Ok", res, friedsToDevices);
+                           utils.showLogs(200, "OK", method, controller, logsGlobal, 0);
+                           utils.sendInfoFunc(200, "Ok", res, friedsToDevices);
 
                             var APPROVED_API_KEY_INSTANCEID = process.env.APPROVED_API_KEY_INSTANCEID
                                 // Set up the Instance ID with you API key

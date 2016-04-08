@@ -8,7 +8,7 @@
 var Passwords = require('machinepack-passwords'),
     controller = "Usercontroller",
     logsGlobal = 1,
-    utilidades = require('../services/Utils');
+    utils = require('../services/Utils');
 
 module.exports = {
 
@@ -22,13 +22,13 @@ module.exports = {
             })
             .exec(function(error, user) {
                 if (error) {
-                    utilidades.showLogs(409, error, method, controller, logsGlobal, 1);
-                    utilidades.sendInfoFunc(409, "Conflict to get user", res, error);
+                    utils.showLogs(409, error, method, controller, logsGlobal, 1);
+                    utils.sendInfoFunc(409, "Conflict to get user", res, error);
 
                 } else {
                     if (user[0] == null) {
-                        utilidades.showLogs(403, "not found", method, controller, logsGlobal, 0);
-                        utilidades.sendInfoFunc(403, "not found information about this person.", res, user);
+                        utils.showLogs(403, "not found", method, controller, logsGlobal, 0);
+                        utils.sendInfoFunc(403, "not found information about this person.", res, user);
                     } else {
                         // Compare a plaintext password attempt against an already-encrypted version.
                         Passwords.checkPassword({
@@ -41,15 +41,15 @@ module.exports = {
                             },
                             // Password attempt does not match already-encrypted version.
                             incorrect: function() {
-                                utilidades.showLogs(404, "error when compare both password", method, controller, logsGlobal);
-                                utilidades.sendInfoFunc(404, "not found information about this person.", res, [{
+                                utils.showLogs(404, "error when compare both password", method, controller, logsGlobal);
+                                utils.sendInfoFunc(404, "not found information about this person.", res, [{
                                     id: user[0].id
                                 }]);
                             },
                             // OK.
                             success: function() {
-                                utilidades.showLogs(200, "OK", method, controller, logsGlobal);
-                                utilidades.sendInfoFunc(200, "User data retrieved.", res, [{
+                                utils.showLogs(200, "OK", method, controller, logsGlobal);
+                                utils.sendInfoFunc(200, "User data retrieved.", res, [{
                                     id: user[0].id
                                 }]);
                             },
@@ -66,16 +66,16 @@ module.exports = {
         User.find()
             .exec(function(error, user) {
                 if (error) {
-                    utilidades.showLogs(409, error, method, controller, logsGlobal, 1);
-                    utilidades.sendInfoFunc(409, "Conflict to get users", res, error);
+                    utils.showLogs(409, error, method, controller, logsGlobal, 1);
+                    utils.sendInfoFunc(409, "Conflict to get users", res, error);
                 } else {
 
                     if (user) {
-                        utilidades.showLogs(200, "OK", method, controller, logsGlobal, 0);
-                        utilidades.sendInfoFunc(200, "OK", res, user);
+                        utils.showLogs(200, "OK", method, controller, logsGlobal, 0);
+                        utils.sendInfoFunc(200, "OK", res, user);
                     } else {
-                        utilidades.showLogs(404, "Not Found", method, controller, logsGlobal, 0);
-                        utilidades.sendInfoFunc(404, "resources was not found", res, user);
+                        utils.showLogs(404, "Not Found", method, controller, logsGlobal, 0);
+                        utils.sendInfoFunc(404, "resources was not found", res, user);
                     }
                 }
             });
@@ -94,8 +94,8 @@ module.exports = {
         }).exec({
             // An unexpected error occurred.
             error: function(err) {
-                utilidades.showLogs(404, "ERROR", method, controller, logsGlobal, 1);
-                utilidades.sendInfoFunc(404, "Error when the pass has benn encrypted", res, err);
+                utils.showLogs(404, "ERROR", method, controller, logsGlobal, 1);
+                utils.sendInfoFunc(404, "Error when the pass has benn encrypted", res, err);
             },
             // OK.
             success: function(encryptedPassword) {
@@ -113,8 +113,8 @@ module.exports = {
                             }) //changed usernaame by email property
                             .exec(function(error, exist) {
                                 if (error) {
-                                    utilidades.showLogs(404, "ERROR", method, controller, logsGlobal, 1);
-                                    utilidades.sendInfoFunc(404, "Error creating user", res, error);
+                                    utils.showLogs(404, "ERROR", method, controller, logsGlobal, 1);
+                                    utils.sendInfoFunc(404, "Error creating user", res, error);
                                 }
                                 if (exist.length == 0) {
                                     User.create({
@@ -128,20 +128,20 @@ module.exports = {
                                         })
                                         .exec(function(error, user) {
                                             if (error) {
-                                                utilidades.showLogs(409, "ERROR", method, controller, logsGlobal, 1);
-                                                utilidades.sendInfoFunc(409, "Conflict to create user", res, error);
+                                                utils.showLogs(409, "ERROR", method, controller, logsGlobal, 1);
+                                                utils.sendInfoFunc(409, "Conflict to create user", res, error);
 
                                             } else {
-                                                utilidades.showLogs(201, "OK", method, controller, logsGlobal, 0);
-                                                utilidades.sendInfoFunc(201, "Create user success", res, [{
+                                                utils.showLogs(201, "OK", method, controller, logsGlobal, 0);
+                                                utils.sendInfoFunc(201, "Create user success", res, [{
                                                     id: user.id
                                                 }]);
 
                                             }
                                         });
                                 } else {
-                                    utilidades.showLogs(409, "WARNING", method, controller, logsGlobal, 0);
-                                    utilidades.sendInfoFunc(409, "User already exist", res, [{
+                                    utils.showLogs(409, "WARNING", method, controller, logsGlobal, 0);
+                                    utils.sendInfoFunc(409, "User already exist", res, [{
                                         id: exist[0].id
                                     }]);
 
@@ -160,12 +160,12 @@ module.exports = {
             })
             .exec(function(error, user) {
                 if (error) {
-                    utilidades.showLogs(404, "ERROR", method, controller, logsGlobal, 1);
-                    utilidades.sendInfoFunc(404, "Error to get user", res, error);
+                    utils.showLogs(404, "ERROR", method, controller, logsGlobal, 1);
+                    utils.sendInfoFunc(404, "Error to get user", res, error);
 
                 } else {
-                    utilidades.showLogs(200, "OK", method, controller, logsGlobal, 0);
-                    utilidades.sendInfoFunc(200, "User data", res, [user[0]]);
+                    utils.showLogs(200, "OK", method, controller, logsGlobal, 0);
+                    utils.sendInfoFunc(200, "User data", res, [user[0]]);
                 }
             });
     },
@@ -173,8 +173,8 @@ module.exports = {
     unsubscribe: function(req, res) {
         var method = "unsubscribe";
         if (!req.param('_id')) {
-            utilidades.showLogs(400, "WARNING", method, controller, logsGlobal, 0);
-            utilidades.sendInfoFunc(400, "invalid parameter", res, []);
+            utils.showLogs(400, "WARNING", method, controller, logsGlobal, 0);
+            utils.sendInfoFunc(400, "invalid parameter", res, []);
 
         } else {
             User.find({
@@ -182,8 +182,8 @@ module.exports = {
                 }) ///verificando si el usuario existe
                 .exec(function(error, user) {
                     if (error) {
-                        utilidades.showLogs(404, "ERROR", method, controller, logsGlobal, 1);
-                        utilidades.sendInfoFunc(404, "Error to get user", res, error);
+                        utils.showLogs(404, "ERROR", method, controller, logsGlobal, 1);
+                        utils.sendInfoFunc(404, "Error to get user", res, error);
                     }
                     if (exist.length != 0) {
                         User.update({
@@ -191,18 +191,18 @@ module.exports = {
                             }, req.allParams())
                             .exec(function(error, user) {
                                 if (error) {
-                                    utilidades.showLogs(404, "ERROR", method, controller, logsGlobal, 1);
-                                    utilidades.sendInfoFunc(404, "Error updating person", res, error);
+                                    utils.showLogs(404, "ERROR", method, controller, logsGlobal, 1);
+                                    utils.sendInfoFunc(404, "Error updating person", res, error);
 
                                 } else {
-                                    utilidades.showLogs(200, "OK", method, controller, logsGlobal, 0);
-                                    utilidades.sendInfoFunc(200, "Update success", res, [user[0].id]);
+                                    utils.showLogs(200, "OK", method, controller, logsGlobal, 0);
+                                    utils.sendInfoFunc(200, "Update success", res, [user[0].id]);
 
                                 }
                             });
                     } else {
-                        utilidades.showLogs(404, "WARNING", method, controller, logsGlobal, 0);
-                        utilidades.sendInfoFunc(404, "Id does not exist", res, []);
+                        utils.showLogs(404, "WARNING", method, controller, logsGlobal, 0);
+                        utils.sendInfoFunc(404, "Id does not exist", res, []);
 
                     }
                 });
@@ -217,8 +217,8 @@ module.exports = {
             })
             .exec(function(error, exist) {
                 if (error) {
-                    utilidades.showLogs(404, "ERROR", method, controller, logsGlobal, 1);
-                    utilidades.sendInfoFunc(404, "Error to get user", res, error);
+                    utils.showLogs(404, "ERROR", method, controller, logsGlobal, 1);
+                    utils.sendInfoFunc(404, "Error to get user", res, error);
 
                 }
                 if (exist.length != 0) {
@@ -227,20 +227,20 @@ module.exports = {
                         })
                         .exec(function(error, user) {
                             if (error) {
-                                utilidades.showLogs(404, "ERROR", method, controller, logsGlobal, 1);
-                                utilidades.sendInfoFunc(404, "Error deleting user", res, error);
+                                utils.showLogs(404, "ERROR", method, controller, logsGlobal, 1);
+                                utils.sendInfoFunc(404, "Error deleting user", res, error);
 
                             } else {
-                                utilidades.showLogs(200, "OK", method, controller, logsGlobal, 0);
-                                utilidades.sendInfoFunc(200, "Delete succes", res, [{
+                                utils.showLogs(200, "OK", method, controller, logsGlobal, 0);
+                                utils.sendInfoFunc(200, "Delete succes", res, [{
                                     id: user[0].id
                                 }]);
 
                             }
                         });
                 } else {
-                    utilidades.showLogs(400, "WARNING", method, controller, logsGlobal, 0);
-                    utilidades.sendInfoFunc(400, "User does not exist", res, []);
+                    utils.showLogs(400, "WARNING", method, controller, logsGlobal, 0);
+                    utils.sendInfoFunc(400, "User does not exist", res, []);
 
                 }
             });
@@ -249,16 +249,16 @@ module.exports = {
     update: function(req, res) {
         var method = "update";
         if (!req.param('_id')) {
-            utilidades.showLogs(400, "WARNING", method, controller, logsGlobal, 0);
-            utilidades.sendInfoFunc(400, "invalid parameter", res, []);
+            utils.showLogs(400, "WARNING", method, controller, logsGlobal, 0);
+            utils.sendInfoFunc(400, "invalid parameter", res, []);
         } else {
             User.find({
                     _id: req.param('_id')
                 }) ///verificando si el usuario existe
                 .exec(function(error, user) {
                     if (error) {
-                        utilidades.showLogs(404, "ERROR", method, controller, logsGlobal, 1);
-                        utilidades.sendInfoFunc(404, "Error to get user", res, error);
+                        utils.showLogs(404, "ERROR", method, controller, logsGlobal, 1);
+                        utils.sendInfoFunc(404, "Error to get user", res, error);
                     }
                     if (exist.length != 0) {
                         User.update({
@@ -266,17 +266,17 @@ module.exports = {
                             }, req.allParams())
                             .exec(function(error, user) {
                                 if (error) {
-                                    utilidades.showLogs(404, "ERROR", method, controller, logsGlobal, 1);
-                                    utilidades.sendInfoFunc(404, "Error updating person", res, error);
+                                    utils.showLogs(404, "ERROR", method, controller, logsGlobal, 1);
+                                    utils.sendInfoFunc(404, "Error updating person", res, error);
 
                                 } else {
-                                    utilidades.showLogs(200, "OK", method, controller, logsGlobal, 0);
-                                    utilidades.sendInfoFunc(200, "Update success", res, [user[0].id]);
+                                    utils.showLogs(200, "OK", method, controller, logsGlobal, 0);
+                                    utils.sendInfoFunc(200, "Update success", res, [user[0].id]);
                                 }
                             });
                     } else {
-                        utilidades.showLogs(400, "WARNING", method, controller, logsGlobal, 0);
-                        utilidades.sendInfoFunc(400, "Id does not exist", res, []);
+                        utils.showLogs(400, "WARNING", method, controller, logsGlobal, 0);
+                        utils.sendInfoFunc(400, "Id does not exist", res, []);
 
                     }
                 });
