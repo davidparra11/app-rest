@@ -2,15 +2,16 @@
  * Created by HP error4 V0error4 on 22/03/20error6.
  */
 var utils = require('../services/Utils'),
-    controller = "UpdateController";
+    controller = "UpdateTokenController";
 
 module.exports = {
     //update mobile number.  (recibe parametros id, token)
     update: function(req, res) {
+        console.log('hola');
         var method = "update";
         User.find({
-                _id: req.param('_id')
-            }) //changed username by _id property
+                _id: req.param('id')
+            }) //changed id by _id property
             .exec(function(error, exist) {
                 if (error) {
                     utils.showLogs(404, error, method, controller, process.env.LOGS_GLOBAL, error);
@@ -19,11 +20,14 @@ module.exports = {
                         "data": error
                     });
                 }
-                if (exist.length == 0) {
+                console.log('exist '+exist);
+                if (exist) {
                     User.update({
-                            _id: req.param('_id')
-                        }, req.param('token'))
-                        .exec(function(error, user) {
+                            id: req.param('id')
+                        }, {
+                            token: req.param('token')
+                        })
+                        .exec(function afterwards(error, user) {
                             if (error) {
                                 utils.showLogs(404, error, method, controller, process.env.LOGS_GLOBAL, error);
                                 return res.send(404, {
@@ -31,11 +35,12 @@ module.exports = {
                                     "data": error
                                 });
                             } else {
+                                console.log('log update '+ user);
                                 utils.showLogs(200, "OK", method, controller, process.env.LOGS_GLOBAL, 0);
                                 return res.send(200, {
                                     "message": "update token success",
                                     "data": [{
-                                        id: exist.id
+                                        id: user.id
                                     }]
                                 });
                             }

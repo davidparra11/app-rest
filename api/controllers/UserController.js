@@ -4,6 +4,7 @@
  * @description :: Server-side logic for managing users
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/controller, process.env.LOGS_GLOBALs
  */
+"use strict";
 
 var Passwords = require('machinepack-passwords'),
     controller = "Usercontroller",
@@ -12,14 +13,14 @@ var Passwords = require('machinepack-passwords'),
 module.exports = {
 
     // Método para el login de la persona.
-    login: function(req, res) {
+    login: function (req, res) {
 
         var method = "login";
 
         User.find({
                 username: req.param('username')
             })
-            .exec(function(error, user) {
+            .exec(function (error, user) {
                 if (error) {
                     utils.showLogs(409, error, method, controller, process.env.LOGS_GLOBAL, error);
                     return res.send(409, {
@@ -40,11 +41,11 @@ module.exports = {
                             encryptedPassword: user[0].encryptedPassword,
                         }).exec({
                             // An unexpected error occurred.
-                            error: function(err) {
+                            error: function (err) {
                                 return res.forbidden();
                             },
                             // Password attempt does not match already-encrypted version.
-                            incorrect: function() {
+                            incorrect: function () {
                                 utils.showLogs(404, "error when compare both password", method, controller, process.env.LOGS_GLOBAL);
                                 return res.send(404, {
                                     "message": "error when compare both password",
@@ -53,7 +54,7 @@ module.exports = {
                                     }]
                                 });
                             },
-                            success: function() {
+                            success: function () {
                                 utils.showLogs(200, "OK", method, controller, process.env.LOGS_GLOBAL);
                                 return res.send(200, {
                                     "message": "User data retrieved.",
@@ -70,11 +71,11 @@ module.exports = {
             });
     },
 
-
-    findAll: function(req, res) {
+    findAll: function (req, res) {
+        console.log('findall');
         var method = "findAll";
         User.find()
-            .exec(function(error, user) {
+            .exec(function (error, user) {
                 if (error) {
                     utils.showLogs(409, error, method, controller, process.env.LOGS_GLOBAL, error);
                     return res.send(409, {
@@ -99,41 +100,40 @@ module.exports = {
             });
     },
 
-
     //Method to create persons who sign up our app.
-    create: function(req, res) {
+    create: function (req, res) {
         var method = "create";
         var Passwords = require('machinepack-passwords');
         // Encrypt a string using the BCrypt algorithm.
         Passwords.encryptPassword({
             password: req.param('password'),
-            difficulty: error0,
+            difficulty: 10,
         }).exec({
             // An unexpected error occurred.
-            error: function(err) {
-                utils.showLogs(404, "ERROR", method, controller, process.env.LOGS_GLOBAL, error);
+            error: function (err) {
+                utils.showLogs(404, "ERROR", method, controller, process.env.LOGS_GLOBAL, 1);
                 return res.send(404, {
                     "message": "Error when the pass has benn encrypted",
                     "data": err
                 });
             },
             // OK.
-            success: function(encryptedPassword) {
+            success: function (encryptedPassword) {
                 require('machinepack-gravatar').getImageUrl({
                     emailAddress: req.param('email')
                 }).exec({
-                    error: function(err) {
+                    error: function (err) {
                         return res.negotiate(err);
                     },
-                    success: function(gravatarUrl) {
+                    success: function (gravatarUrl) {
                         // Create a User with the params sent from
                         // the sign-up form --> signup.ejs
                         User.find({
                                 email: req.param('username')
                             }) //changed usernaame by email property
-                            .exec(function(error, exist) {
+                            .exec(function (error, exist) {
                                 if (error) {
-                                    utils.showLogs(404, "ERROR", method, controller, process.env.LOGS_GLOBAL, error);
+                                    utils.showLogs(404, "ERROR", method, controller, process.env.LOGS_GLOBAL, 1);
                                     return res.send(404, {
                                         "message": "Error creating user",
                                         "data": error
@@ -149,16 +149,16 @@ module.exports = {
                                             lastLoggedIn: new Date(),
                                             //gravatarUrl: gravatarUrl
                                         })
-                                        .exec(function(error, user) {
+                                        .exec(function (error, user) {
                                             if (error) {
-                                                utils.showLogs(409, "ERROR", method, controller, process.env.LOGS_GLOBAL, error);
+                                                utils.showLogs(409, "ERROR", method, controller, process.env.LOGS_GLOBAL, 1);
                                                 return res.send(409, {
                                                     "message": "Conflict to create user",
                                                     "data": error
                                                 });
                                             } else {
-                                                utils.showLogs(201, "OK", method, controller, process.env.LOGS_GLOBAL, 0);
-                                                return res.send(201, {
+                                                utils.showLogs(200, "OK", method, controller, process.env.LOGS_GLOBAL, 0);
+                                                return res.send(200, {
                                                     "message": "Create user success",
                                                     "data": [{
                                                         id: user.id
@@ -168,7 +168,7 @@ module.exports = {
                                         });
                                 } else {
                                     utils.showLogs(409, "WARNING", method, controller, process.env.LOGS_GLOBAL, 0);
-                                    return res.send(201, {
+                                    return res.send(409, {
                                         "message": "User already exist",
                                         "data": [{
                                             id: exist[0].id
@@ -182,12 +182,12 @@ module.exports = {
         });
     },
 
-    find: function(req, res) {
+    find: function (req, res) {
         var method = "find";
         User.find({
                 username: req.param('username')
             })
-            .exec(function(error, user) {
+            .exec(function (error, user) {
                 if (error) {
                     utils.showLogs(404, "ERROR", method, controller, process.env.LOGS_GLOBAL, error);
                     return res.send(404, {
@@ -204,7 +204,7 @@ module.exports = {
             });
     },
 
-    unsubscribe: function(req, res) {
+    unsubscribe: function (req, res) {
         var method = "unsubscribe";
         if (!req.param('_id')) {
             utils.showLogs(400, "WARNING", method, controller, process.env.LOGS_GLOBAL, 0);
@@ -216,7 +216,7 @@ module.exports = {
             User.find({
                     _id: req.param('_id')
                 }) ///verificando si el usuario existe
-                .exec(function(error, user) {
+                .exec(function (error, user) {
                     if (error) {
                         utils.showLogs(404, "ERROR", method, controller, process.env.LOGS_GLOBAL, error);
                         return res.send(404, {
@@ -228,7 +228,7 @@ module.exports = {
                         User.update({
                                 username: req.param('unsubscribe')
                             }, req.allParams())
-                            .exec(function(error, user) {
+                            .exec(function (error, user) {
                                 if (error) {
                                     utils.showLogs(404, "ERROR", method, controller, process.env.LOGS_GLOBAL, error);
                                     return res.send(404, {
@@ -255,12 +255,12 @@ module.exports = {
     },
 
     //elminar cuenta por caso extremo
-    delete: function(req, res) {
+    delete: function (req, res) {
         var method = "delete";
         User.find({
                 _id: req.param('_id')
             })
-            .exec(function(error, exist) {
+            .exec(function (error, exist) {
                 if (error) {
                     utils.showLogs(404, "ERROR", method, controller, process.env.LOGS_GLOBAL, error);
                     return res.send(404, {
@@ -272,7 +272,7 @@ module.exports = {
                     User.destroy({
                             _id: req.param('_id')
                         })
-                        .exec(function(error, user) {
+                        .exec(function (error, user) {
                             if (error) {
                                 utils.showLogs(404, "ERROR", method, controller, process.env.LOGS_GLOBAL, error);
                                 return res.send(404, {
@@ -300,7 +300,7 @@ module.exports = {
             });
     },
 
-    update: function(req, res) {
+    update: function (req, res) {
         var method = "update";
         if (!req.param('_id')) {
             utils.showLogs(400, "WARNING", method, controller, process.env.LOGS_GLOBAL, 0);
@@ -312,7 +312,7 @@ module.exports = {
             User.find({
                     _id: req.param('_id')
                 }) ///verificando si el usuario existe
-                .exec(function(error, user) {
+                .exec(function (error, user) {
                     if (error) {
                         utils.showLogs(404, "ERROR", method, controller, process.env.LOGS_GLOBAL, error);
                         return res.send(404, {
@@ -324,9 +324,9 @@ module.exports = {
                         User.update({
                                 username: req.param('_id')
                             }, req.allParams())
-                            .exec(function(error, user) {
+                            .exec(function (error, user) {
                                 if (error) {
-                                    utils.showLogs(404, "ERROR", method, controller, process.env.LOGS_GLOBAL, error);
+                                    utils.showLogs(404, "ERROR", method, controller, process.env.LOGS_GLOBAL, 1);
                                     return res.send(404, {
                                         "message": "Error updating person",
                                         "data": error

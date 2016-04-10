@@ -1,8 +1,8 @@
 module.exports = {
 	showLogs: function(code, response, method, controller, logsGlobal, errorInfo) {
-
-		if (logsGlobal == true) {
-			if (errorInfo = error) {
+		console.log(logsGlobal);
+		if (logsGlobal) {
+			if (errorInfo = 1) {
 				sails.log.error({
 					"code": code,
 					"response": response,

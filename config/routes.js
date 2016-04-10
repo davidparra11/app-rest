@@ -90,7 +90,7 @@ module.exports.routes = {
     },
 
     // recursos para los comparar los amigos de la agenda con nuestras bases de datos(RegisterController)
-    'post /getfriends/': {
+    'post /friends/': {
         controller: 'RegisterController',
         action: 'getFriends'
     },

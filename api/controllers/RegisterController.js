@@ -8,6 +8,7 @@ var controller = "Registercontroller";
 var utils = require('../services/Utils');
 //process.env.LOGS_GLOBAL
 //make it just when the account has been verified with text message. params: (id, phoneNumber)
+
 module.exports = {
         //update mobilePhone number.
         update: function(req, res) {
@@ -34,7 +35,7 @@ module.exports = {
                     } else {
                         User.update({
                                 _id: req.param('_id')
-                            }, req.param('phoneNumber'))
+                            }, {phoneNumber: req.param('phoneNumber')})
                             .exec(function(error, user) {
                                 if (error) {
                                     utils.showLogs(404, "ERROR", method, controller, process.env.LOGS_GLOBAL, error);
@@ -55,7 +56,6 @@ module.exports = {
                     }
                 });
         },
-
         //attemp to will get the users from our databases when pass array of agenda numbers.
         getFriends: function(req, res) {
 
@@ -97,6 +97,11 @@ module.exports = {
 
                                 friedsToDevices.push(exist[i].phoneNumber);
                                 friendsTokens.push(exist[i].token);
+                                friendsDictionary.push({
+                                    'username': exist[i].username,
+                                    'token': exist[i].token
+
+                                })
                             }
                             console.log('getFriends' + friedsToDevices);
 

@@ -12,7 +12,7 @@ module.exports = {
 
     attributes: {
 
-        _id: {
+        id: {
             type: 'string',
             unique: true,
             primaryKey: true,
