@@ -1,8 +1,8 @@
 module.exports = {
 	showLogs: function(code, response, method, controller, logsGlobal, errorInfo) {
 
-		if (logsGlobal == 1) {
-			if (errorInfo == 1) {
+		if (logsGlobal == true) {
+			if (errorInfo = error) {
 				sails.log.error({
 					"code": code,
 					"response": response,
@@ -20,13 +20,6 @@ module.exports = {
 		} else {
 			sails.log("Logs has been disabled")
 		}
-	},
-
-	sendInfoFunc: function(code, res, message, data) {
-
-		return res.send(code, {
-			"message": message,
-			"data": data
-		});
 	}
+
 }
