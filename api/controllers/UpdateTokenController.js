@@ -2,43 +2,51 @@
  * Created by HP error4 V0error4 on 22/03/20error6.
  */
 var utils = require('../services/Utils'),
+    ObjectId = require('sails-mongo/node_modules/mongodb').ObjectID,
     controller = "UpdateTokenController";
 
 module.exports = {
     //update mobile number.  (recibe parametros id, token)
-    update: function(req, res) {
-        console.log('hola');
+    update: function (req, res) {
+
+        var o_id = new ObjectId(req.param('id'));
         var method = "update";
-        User.find({
-                _id: req.param('id')
-            }) //changed id by _id property
-            .exec(function(error, exist) {
-                if (error) {
-                    utils.showLogs(404, error, method, controller, process.env.LOGS_GLOBAL, error);
+        User.native(function(error, collection) {
+            if (error) {
+                utils.showLogs(404, "ERROR", method, controller, error);
+                return res.send(404, {
+                    "message": "Error to get user",
+                    "data": error
+                });
+            }
+            collection.find({
+                _id: o_id
+            }).toArray(function(err, result) {
+                if (err) {
+                    utils.showLogs(404, "ERROR", method, controller, err);
                     return res.send(404, {
-                        "message": "Error finding user",
-                        "data": error
+                        "message": "Error to find user",
+                        "data": err
                     });
                 }
-                console.log('exist '+exist);
-                if (exist) {
+                console.log('result' + result);
+                if (result.length != 0) {
                     User.update({
-                            id: req.param('id')
+                            _id: o_id
                         }, {
                             token: req.param('token')
                         })
-                        .exec(function afterwards(error, user) {
+                        .exec(function(error, user) {
                             if (error) {
-                                utils.showLogs(404, error, method, controller, process.env.LOGS_GLOBAL, error);
+                                utils.showLogs(404, "ERROR", method, controller, error);
                                 return res.send(404, {
-                                    "message": "Error updating user",
+                                    "message": "Error updating token user",
                                     "data": error
                                 });
                             } else {
-                                console.log('log update '+ user);
-                                utils.showLogs(200, "OK", method, controller, process.env.LOGS_GLOBAL, 0);
+                                utils.showLogs(200, "OK", method, controller, 0);
                                 return res.send(200, {
-                                    "message": "update token success",
+                                    "message": "token updated and success",
                                     "data": [{
                                         id: user.id
                                     }]
@@ -46,12 +54,14 @@ module.exports = {
                             }
                         });
                 } else {
-                    utils.showLogs(409, "WARNING", method, controller, process.env.LOGS_GLOBAL, 0);
+                    utils.showLogs(409, "WARNING", method, controller, 0);
                     return res.send(409, {
-                        "message": "Error updating user token",
-                        "data": error
+                        "message": "Id does not exist",
+                        "data": []
                     });
                 }
             });
+        });
+
     }
 }

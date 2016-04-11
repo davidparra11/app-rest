@@ -12,13 +12,15 @@ module.exports = {
 
     attributes: {
 
-        id: {
+       /* id: {
             type: 'string',
             unique: true,
             primaryKey: true,
             columnName: 'the_primary_key',
             autoIncrement: true
         },
+
+        */
 
         username: {
             type: 'string',

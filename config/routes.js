@@ -72,12 +72,12 @@ module.exports.routes = {
         action: 'delete'
     },
     //desinscribe la persona de la applicacion
-    'put /users/unsubscribe/:_id': {
+    'put /unsubscribe/': {
         controller: 'UserController',
         action: 'unsubscribe'
     },
     // actualiza la persona buscandola por su id
-    'put /users/:_id': {
+    'put /update/': {
         controller: 'UserController',
         action: 'update'
     },
@@ -101,6 +101,4 @@ module.exports.routes = {
         action: 'update'
     },
 
-
- 
 };
