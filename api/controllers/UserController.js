@@ -207,8 +207,8 @@ module.exports = {
 
     unsubscribe: function(req, res) {
         var method = "unsubscribe";
-        var o_id = new ObjectId(req.param('id'));
-        console.log(o_id);
+        var objId = new ObjectId(req.param('id'));
+        console.log(objId);
         if (!req.param('id')) {
             utils.showLogs(400, "WARNING", method, controller, 0);
             return res.send(404, {
@@ -225,15 +225,13 @@ module.exports = {
                     });
                 }
                 collection.find({
-                    _id: o_id
+                    _id: objId
                 }).toArray(function(err, result) {
                     if (err) return res.negotiate(err);
                     console.log('result' + result);
-
-
                     if (result.length != 0) {
                         User.update({
-                                _id: o_id
+                                _id: objId
                             }, {
                                 active: req.param('active')
                             })
@@ -260,12 +258,12 @@ module.exports = {
                         });
                     }
                 });
-            }); //
+            }); 
 
         }
     },
 
-    //elminar cuenta por caso extremo
+    //delete count for weird cases users
     delete: function(req, res) {
         var method = "delete";
         User.find({
@@ -313,7 +311,7 @@ module.exports = {
 
     update: function(req, res) {
         var method = "update";
-        var o_id = new ObjectId(req.param('id'));
+        var objId = new ObjectId(req.param('id'));
         if (!req.param('id')) {
             utils.showLogs(400, "WARNING", method, controller, 0);
             return res.send(400, {
@@ -330,13 +328,13 @@ module.exports = {
                     });
                 }
                 collection.find({
-                    _id: o_id
+                    _id: objId
                 }).toArray(function(err, result) {
                     if (err) return res.negotiate(err);
                     console.log('result' + result);
                     if (result.length != 0) {
                         User.update({
-                                _id: o_id
+                                _id: objId
                             }, req.allParams())
                             .exec(function(error, user) {
                                 if (error) {
@@ -362,7 +360,7 @@ module.exports = {
                     }
                 });
             });
-        } //1er ele
+        } 
     }
 
 };

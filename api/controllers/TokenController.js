@@ -3,13 +3,13 @@
  */
 var utils = require('../services/Utils'),
     ObjectId = require('sails-mongo/node_modules/mongodb').ObjectID,
-    controller = "UpdateTokenController";
+    controller = "TokenController";
 
 module.exports = {
     //update mobile number.  (recibe parametros id, token)
     update: function (req, res) {
 
-        var o_id = new ObjectId(req.param('id'));
+        var objId = new ObjectId(req.param('id'));
         var method = "update";
         User.native(function(error, collection) {
             if (error) {
@@ -20,7 +20,7 @@ module.exports = {
                 });
             }
             collection.find({
-                _id: o_id
+                _id: objId
             }).toArray(function(err, result) {
                 if (err) {
                     utils.showLogs(404, "ERROR", method, controller, err);
@@ -32,7 +32,7 @@ module.exports = {
                 console.log('result' + result);
                 if (result.length != 0) {
                     User.update({
-                            _id: o_id
+                            _id: objId
                         }, {
                             token: req.param('token')
                         })

@@ -97,7 +97,7 @@ module.exports.routes = {
 
     // recursos para  actualizar el token de una persona en especifico.
     'put /token/': {
-        controller: 'UpdateTokenController',
+        controller: 'TokenController',
         action: 'update'
     },
 

@@ -4,17 +4,15 @@
 
 var gcm = require('node-gcm-iid'),
     controller = "Registercontroller";
-    ObjectId = require('sails-mongo/node_modules/mongodb').ObjectID;
+ObjectId = require('sails-mongo/node_modules/mongodb').ObjectID,
+    utils = require('../services/Utils');
 
-var utils = require('../services/Utils');
-//process.env.LOGS_GLOBAL
 //make it just when the account has been verified with text message. params: (id, phoneNumber)
-
 module.exports = {
         //update mobilePhone number.
         update: function(req, res) {
 
-            var o_id = new ObjectId(req.param('id'));
+            var objId = new ObjectId(req.param('id'));
             var method = "update";
             User.native(function(error, collection) {
                 if (error) {
@@ -25,7 +23,7 @@ module.exports = {
                     });
                 }
                 collection.find({
-                    _id: o_id
+                    _id: objId
                 }).toArray(function(err, result) {
                     if (err) {
                         utils.showLogs(404, "ERROR", method, controller, err);
@@ -37,7 +35,7 @@ module.exports = {
                     console.log('result' + result);
                     if (result.length != 0) {
                         User.update({
-                                _id: o_id
+                                _id: objId
                             }, {
                                 phoneNumber: req.param('phoneNumber')
                             })
@@ -101,18 +99,19 @@ module.exports = {
                                 }]
                             });
                         } else {
-
                             var friedsToDevices = [];
                             var friendsTokens = [];
 
-                            for (i = 0; i < exist.length; i++) {
 
-                                friedsToDevices.push(exist[i].phoneNumber);
+                            for (i = 0; i < exist.length; i++) {
+                                var onlyNumber = exist[i].phoneNumber.split(" ");
+                                friedsToDevices.push(onlyNumber[1]);
                                 friendsTokens.push(exist[i].token);
                                 friendsDictionary.push({
                                     'username': exist[i].username,
-                                    'token': exist[i].token
-
+                                    'token': exist[i].token,
+                                    'phoneNumber': exist[i].phoneNumber,
+                                    'imageUser': exist[i].imageUser
                                 })
                             }
                             console.log('getFriends' + friedsToDevices);
@@ -149,7 +148,11 @@ module.exports = {
         arra = data.split("'");
         var texto = [];
         for (i = 0; i < arra.length; i++) {
-            texto.push(arra[i]);
+            if (arra[i].length == 14) {
+                texto.push(arra[i]);
+            }else{
+                console.log('its phoneNumber dont aproved length policy for: +57 3XXXXXXXXX')
+            }
         }
         return texto;
 
