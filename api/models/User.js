@@ -12,14 +12,15 @@ module.exports = {
 
     attributes: {
 
-        _id: {
-            type: 'string',
-            unique: true,
-            primaryKey: true,
-            columnName: 'the_primary_key',
-            autoIncrement: true
-        },
+        /* id: {
+             type: 'string',
+             unique: true,
+             primaryKey: true,
+             columnName: 'the_primary_key',
+             autoIncrement: true
+         },
 
+         */
         username: {
             type: 'string',
             required: true,
@@ -70,6 +71,11 @@ module.exports = {
             defaultsTo: 1
 
         },
+
+        imageUser: {
+            type: 'string',
+            defaultsTo: 1
+        },
         /*  password: {
          type: 'string',
          required: true,
@@ -85,4 +91,3 @@ module.exports = {
         }
     }
 };
-

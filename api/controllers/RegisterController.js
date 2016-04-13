@@ -2,48 +2,52 @@
  * Created by David Parra on 15/03/2016.
  */
 
-gcm = require('node-gcm-iid');
-var controller = "Registercontroller";
+var gcm = require('node-gcm-iid'),
+    controller = "Registercontroller";
+ObjectId = require('sails-mongo/node_modules/mongodb').ObjectID,
+    utils = require('../services/Utils');
 
-var utils = require('../services/Utils');
-//process.env.LOGS_GLOBAL
 //make it just when the account has been verified with text message. params: (id, phoneNumber)
 module.exports = {
         //update mobilePhone number.
         update: function(req, res) {
+
+            var objId = new ObjectId(req.param('id'));
             var method = "update";
-            User.find({
-                    _id: req.param('_id')
-                }) //changed username by _id property
-                .exec(function(error, exist) {
-                    if (error) {
-                        utils.showLogs(404, "ERROR", method, controller, process.env.LOGS_GLOBAL, error);
+            User.native(function(error, collection) {
+                if (error) {
+                    utils.showLogs(404, "ERROR", method, controller, error);
+                    return res.send(404, {
+                        "message": "Error to get user",
+                        "data": error
+                    });
+                }
+                collection.find({
+                    _id: objId
+                }).toArray(function(err, result) {
+                    if (err) {
+                        utils.showLogs(404, "ERROR", method, controller, err);
                         return res.send(404, {
-                            "message": "Error finding user",
-                            "data": error
+                            "message": "Error to find user",
+                            "data": err
                         });
                     }
-                    if (exist.length == 0) {
-                        utils.showLogs(400, "WARNING", method, controller, process.env.LOGS_GLOBAL);
-                        return res.send(400, {
-                            "message": "warninig finding user",
-                            "data": [{
-                                id: exist.id
-                            }]
-                        });
-                    } else {
+                    console.log('result' + result);
+                    if (result.length != 0) {
                         User.update({
-                                _id: req.param('_id')
-                            }, req.param('phoneNumber'))
+                                _id: objId
+                            }, {
+                                phoneNumber: req.param('phoneNumber')
+                            })
                             .exec(function(error, user) {
                                 if (error) {
-                                    utils.showLogs(404, "ERROR", method, controller, process.env.LOGS_GLOBAL, error);
+                                    utils.showLogs(404, "ERROR", method, controller, error);
                                     return res.send(404, {
-                                        "message": "Error finding user",
+                                        "message": "Error updating phoneNumber user",
                                         "data": error
                                     });
                                 } else {
-                                    utils.showLogs(200, "OK", method, controller, process.env.LOGS_GLOBAL);
+                                    utils.showLogs(200, "OK", method, controller, 0);
                                     return res.send(200, {
                                         "message": "mobilePhone updated",
                                         "data": [{
@@ -52,10 +56,16 @@ module.exports = {
                                     });
                                 }
                             });
+                    } else {
+                        utils.showLogs(400, "WARNING", method, controller, 0);
+                        return res.send(400, {
+                            "message": "Id does not exist",
+                            "data": []
+                        });
                     }
                 });
+            });
         },
-
         //attemp to will get the users from our databases when pass array of agenda numbers.
         getFriends: function(req, res) {
 
@@ -72,7 +82,7 @@ module.exports = {
                     }) //req.param('arrayAgenda')['311','321']
                     .toArray(function(error, exist) {
                         if (error) {
-                            utils.showLogs(404, "ERROR", method, controller, process.env.LOGS_GLOBAL, error);
+                            utils.showLogs(404, "ERROR", method, controller, error);
                             return res.send(404, {
                                 "message": "Error finding user",
                                 "data": error
@@ -81,7 +91,7 @@ module.exports = {
                         if (exist.length == 0) {
                             console.log(exist);
 
-                            utils.showLogs(409, "WARNING", method, controller, process.env.LOGS_GLOBAL);
+                            utils.showLogs(409, "WARNING", method, controller, 0);
                             return res.send(409, {
                                 "message": "Users no exist",
                                 "data": [{
@@ -89,18 +99,24 @@ module.exports = {
                                 }]
                             });
                         } else {
-
                             var friedsToDevices = [];
                             var friendsTokens = [];
 
-                            for (i = 0; i < exist.length; i++) {
 
-                                friedsToDevices.push(exist[i].phoneNumber);
+                            for (i = 0; i < exist.length; i++) {
+                                var onlyNumber = exist[i].phoneNumber.split(" ");
+                                friedsToDevices.push(onlyNumber[1]);
                                 friendsTokens.push(exist[i].token);
+                                friendsDictionary.push({
+                                    'username': exist[i].username,
+                                    'token': exist[i].token,
+                                    'phoneNumber': exist[i].phoneNumber,
+                                    'imageUser': exist[i].imageUser
+                                })
                             }
                             console.log('getFriends' + friedsToDevices);
 
-                            utils.showLogs(200, "OK", method, controller, process.env.LOGS_GLOBAL, 0);
+                            utils.showLogs(200, "OK", method, controller, 0);
                             return res.send(200, {
                                 "message": "OK",
                                 "data": friedsToDevices
@@ -132,7 +148,11 @@ module.exports = {
         arra = data.split("'");
         var texto = [];
         for (i = 0; i < arra.length; i++) {
-            texto.push(arra[i]);
+            if (arra[i].length == 14) {
+                texto.push(arra[i]);
+            }else{
+                console.log('its phoneNumber dont aproved length policy for: +57 3XXXXXXXXX')
+            }
         }
         return texto;
 

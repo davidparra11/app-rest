@@ -72,12 +72,12 @@ module.exports.routes = {
         action: 'delete'
     },
     //desinscribe la persona de la applicacion
-    'put /users/unsubscribe/:_id': {
+    'put /unsubscribe/': {
         controller: 'UserController',
         action: 'unsubscribe'
     },
     // actualiza la persona buscandola por su id
-    'put /users/:_id': {
+    'put /update/': {
         controller: 'UserController',
         action: 'update'
     },
@@ -90,17 +90,15 @@ module.exports.routes = {
     },
 
     // recursos para los comparar los amigos de la agenda con nuestras bases de datos(RegisterController)
-    'post /getfriends/': {
+    'post /friends/': {
         controller: 'RegisterController',
         action: 'getFriends'
     },
 
     // recursos para  actualizar el token de una persona en especifico.
     'put /token/': {
-        controller: 'UpdateTokenController',
+        controller: 'TokenController',
         action: 'update'
     },
 
-
- 
 };
