@@ -74,7 +74,7 @@ module.exports = {
 
         imageUser: {
             type: 'string',
-            size: 100,
+            defaultsTo: 1
         },
         /*  password: {
          type: 'string',
