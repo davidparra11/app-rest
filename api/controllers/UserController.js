@@ -131,7 +131,7 @@ module.exports = {
                         // the sign-up form --> signup.ejs
                         User.find({
                                 email: req.param('username')
-                            }) //changed usernaame by email property
+                            }) //changed username by email property
                             .exec(function(error, exist) {
                                 if (error) {
                                     utils.showLogs(404, "ERROR", method, controller, 1);
