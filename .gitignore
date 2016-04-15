@@ -83,7 +83,6 @@ dump.rdb
 .rigging
 .waterline
 .sails
-.env
 
 
 
@@ -120,3 +119,4 @@ npm-debug.log
 nbproject
 .idea
 .node_history
+.env

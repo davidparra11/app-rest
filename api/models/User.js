@@ -7,73 +7,87 @@
 
 module.exports = {
 
- tableName       : 'our_users',
+    tableName: 'users',
 
 
-  attributes: {
+    attributes: {
 
-    _id: {
-      type: 'string',
-      unique: true,
-      primaryKey: true,
-      columnName: 'the_primary_key',
-      autoIncrement: true
-    },
+        /* id: {
+             type: 'string',
+             unique: true,
+             primaryKey: true,
+             columnName: 'the_primary_key',
+             autoIncrement: true
+         },
 
-    username :{
-  	 type: 'string',
-  	 required: true,
-     unique: true
-  	},
+         */
+        username: {
+            type: 'string',
+            required: true,
+            unique: true
+        },
 
-    phoneNumber: {
-      type: 'string',
-      primaryKey: true,
-      defaultsTo: '111-222-3333',
-      size: 15,
-      unique: true     
-    },
+        phoneNumber: {
+            type: 'string',
+            primaryKey: true,
+            defaultsTo: '111-222-3333',
+            size: 15,
+            unique: true
+        },
 
-    encryptedPassword: {
-      type: 'string',
-      required: true
-    },
+        encryptedPassword: {
+            type: 'string',
+            required: true
+        },
 
-  /*  password: {
-      type: 'string',
-      required: true,
-      columnName: 'encrypted_password'
-    },
-*/
-    firstName: {
-      type: 'string',
-       defaultsTo: ''
-    },
 
-    lastName: {
-      type: 'string',
-      defaultsTo: ''
-    },
-    email: {
-      type: 'string',
-      email: true,
-      unique: true,
-      required: true
+        firstName: {
+            type: 'string',
+            defaultsTo: ''
+        },
 
-    },
-  	active : {
-  		type : 'boolean'
+        lastName: {
+            type: 'string',
+            defaultsTo: ''
+        },
+        email: {
+            type: 'string',
+            email: true,
+            unique: true,
+            required: true
 
-  	},
-    
+        },
 
-    // The timestamp when the the user last logged in
-    // (i.e. sent a username and password to the server)
-    lastLoggedIn: {
-      type: 'date',
-      required: true,
-      defaultsTo: new Date(0)
+        token: {
+            type: 'string',
+            required: true,
+            //unique: true,
+            defaultsTo: 'der'
+
+        },
+
+        active: {
+            type: 'boolean',
+            defaultsTo: 1
+
+        },
+
+        imageUser: {
+            type: 'string',
+            defaultsTo: 1
+        },
+        /*  password: {
+         type: 'string',
+         required: true,
+         columnName: 'encrypted_password'
+         },
+         */
+        // The timestamp when the the user last logged in
+        // (i.e. sent a username and password to the server)
+        lastLoggedIn: {
+            type: 'date',
+            required: true,
+            defaultsTo: new Date(0)
+        }
     }
-  }
 };
-

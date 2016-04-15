@@ -17,18 +17,18 @@ module.exports.models = {
   * connections (see `config/connections.js`)                                *
   *                                                                          *
   ***************************************************************************/
-  // connection: 'localDiskDb',
+  connection: 'localDiskDb',
 
   /***************************************************************************
   *                                                                          *
   * How and whether Sails will attempt to automatically rebuild the          *
   * tables/collections/etc. in your schema.                                  *
   *                                                                          *
-  * See http://sailsjs.org/#!/documentation/concepts/ORM/model-settings.html  *
+  * See http://sailsjs.org/#!/documentation/concepts/ORM/model-settings.html *
   *                                                                          *
   ***************************************************************************/
   migrate    : 'safe',             //safe - alter  - drop  
-    //connection : 'mongoProduction',
+  connection : 'mongoProduction',
     //connection : 'productionPosgrest',
     //schema     : false,             // habilita el uso de esquemas en DB
 
