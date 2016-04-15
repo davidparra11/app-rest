@@ -17,7 +17,16 @@ gulp.task('default', function() {
   gulp.run('server')
   gulp.watch(['api/controllers/*.js','*.html','*.js'], function() {
     gulp.run('server')
-  })
+  });
 
+});
 
+var eslint = require('gulp-eslint');
+var files = ['api/**/*.js','!node_modules/**', '!api/responses/*.js'];
+
+gulp.task('lint', function () {
+    return gulp.src(files)
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
 });

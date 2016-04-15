@@ -1,7 +1,7 @@
 /**
  * Created by David Parra on 15/03/2016.
  */
-
+'use strict';
 var gcm = require('node-gcm-iid'),
     controller = "Registercontroller";
 ObjectId = require('sails-mongo/node_modules/mongodb').ObjectID,
