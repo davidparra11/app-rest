@@ -51,6 +51,7 @@
   "author": "hash",
   "license": "",
   "devDependencies": {
-    "jshint": "^2.9.1"
+    "jshint": "^2.9.1",
+    "supertest": "^1.2.0"
   }
 }

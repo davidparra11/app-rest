@@ -2,13 +2,14 @@ var request = require('supertest');
 
 describe('UserController', function() {
 
-  describe('#login()', function() {
-    it('should redirect to /mypage', function (done) {
+  describe('#findAll()', function() {
+    it('show me all users', function (done) {
       request(sails.hooks.http.app)
-        .post('/users/login')
+        .get('/users/')
         .send({ name: 'test', password: 'test' })
-        .expect(302)
-        .expect('location','/mypage', done);
+        .expect(200, done);
+        
+
     });
   });
 
