@@ -17,7 +17,7 @@ module.exports.models = {
   * connections (see `config/connections.js`)                                *
   *                                                                          *
   ***************************************************************************/
-  // connection: 'localDiskDb',
+  connection: 'localDiskDb',
 
   /***************************************************************************
   *                                                                          *
@@ -28,9 +28,7 @@ module.exports.models = {
   *                                                                          *
   ***************************************************************************/
   migrate    : 'safe',             //safe - alter  - drop  
-
-    connection : 'mongoProduction',
-
+  connection : 'mongoProduction',
     //connection : 'productionPosgrest',
     //schema     : false,             // habilita el uso de esquemas en DB
 
