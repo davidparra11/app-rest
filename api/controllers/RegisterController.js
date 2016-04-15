@@ -1,10 +1,10 @@
-/**
+  /**
  * Created by David Parra on 15/03/2016.
  */
 
 var gcm = require('node-gcm-iid'),
-    controller = "Registercontroller";
-ObjectId = require('sails-mongo/node_modules/mongodb').ObjectID,
+    controller = "Registercontroller",
+    ObjectId = require('sails-mongo/node_modules/mongodb').ObjectID,
     utils = require('../services/Utils');
 
 //make it just when the account has been verified with text message. params: (id, phoneNumber)
@@ -33,7 +33,7 @@ module.exports = {
                         });
                     }
                     console.log('result' + result);
-                    if (result.length != 0) {
+                    if (result.length !== 0) {
                         User.update({
                                 _id: objId
                             }, {
@@ -112,7 +112,7 @@ module.exports = {
                                     'token': exist[i].token,
                                     'phoneNumber': exist[i].phoneNumber,
                                     'imageUser': exist[i].imageUser
-                                })
+                                });
                             }
                             console.log('getFriends' + friedsToDevices);
 
@@ -122,7 +122,7 @@ module.exports = {
                                 "data": friedsToDevices
                             });
 
-                            var APPROVED_API_KEY_INSTANCEID = process.env.APPROVED_API_KEY_INSTANCEID
+                            var APPROVED_API_KEY_INSTANCEID = process.env.APPROVED_API_KEY_INSTANCEID;
                                 // Set up the Instance ID with you API key
                             var instanceId = new gcm.InstanceId(APPROVED_API_KEY_INSTANCEID);
 

@@ -20,7 +20,7 @@ module.exports = {
 				});
 			}
 		} else {
-			sails.log("Logs has been disabled")
+			sails.log("Logs has been disabled");
 		}
 	}
 
