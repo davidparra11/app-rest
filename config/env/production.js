@@ -18,8 +18,13 @@ module.exports = {
    ***************************************************************************/
 
   models: {
+<<<<<<< HEAD
      connection: 'mongoProduction'
    }
+=======
+     connection: 'mongodb'
+   },
+>>>>>>> master
 
   /***************************************************************************
    * Set the port in the production environment to 80                        *
