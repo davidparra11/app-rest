@@ -71,7 +71,7 @@ module.exports.connections = {
 
 mongoProduction: {
     adapter: 'sails-mongo',
-    url: process.env.MONGOLAB_URI,
+    url: process.env.MONGODB_URI,
     schema : true
 }
 
