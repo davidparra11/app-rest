@@ -2,6 +2,8 @@ var gulp = require('gulp');
 var spawn = require('child_process').spawn, node;
 var eslint = require('gulp-eslint');
 var files = ['api/**/*.js', '!node_modules/**', '!api/responses/*.js'];
+var istanbul = require('gulp-istanbul');
+const mocha = require('gulp-mocha');
 
 gulp.task('server', function () {
     if (node) node.kill()
@@ -26,4 +28,23 @@ gulp.task('lint', function () {
         .pipe(eslint())
         .pipe(eslint.format())
         .pipe(eslint.failAfterError());
+});
+
+gulp.task('test', () => {
+    return gulp.src('test/*.test.js', {read: false})
+        // gulp-mocha needs filepaths so you can't have any plugins before it
+        .pipe(mocha({reporter: 'nyan'}));
+});
+
+gulp.task('coverage', function () {
+  return gulp.src(['test/*.js'])
+        // Covering files
+    .pipe(istanbul())
+    // Force `require` to return covered files
+    .pipe(istanbul.hookRequire())
+    .pipe(mocha())
+    // Creating the reports after tests ran
+    .pipe(istanbul.writeReports())
+    // Enforce a coverage of at least 90%
+    .pipe(istanbul.enforceThresholds({ thresholds: { global: 90 } }));
 });
