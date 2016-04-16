@@ -172,7 +172,6 @@ module.exports = {
 
         }
         return number;
-
     },
     /**
      Function that captures req.param("phoneNumber") String and return a  split varible on code & phone
@@ -180,19 +179,15 @@ module.exports = {
      return = {interCode: codeInternational,
             phoneNumber: phone}
      **/
-
     function phoneSplit(data) {
 
         var codeNumber = {};
-
         var code = data.substring(0, 3);
         var phone = data.substring(3, 13);
         codeNumber = {
             interCode: codeInternational,
             phoneNumber: phone
         };
-
         return codeNumber;
-
     }
-};
+}
