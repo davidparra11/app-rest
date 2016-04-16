@@ -3,8 +3,8 @@
  */
 'use strict';
 var gcm = require('node-gcm-iid'),
-    controller = "Registercontroller";
-var ObjectId = require('sails-mongo/node_modules/mongodb').ObjectID,
+    controller = "Registercontroller",
+    ObjectId = require('sails-mongo/node_modules/mongodb').ObjectID,
     utils = require('../services/Utils');
 
 //make it just when the account has been verified with text message. params: (id, phoneNumber)
@@ -12,8 +12,13 @@ module.exports = {
         //update mobilePhone number.
         update: function(req, res) {
 
-            var objId = new ObjectId(req.param('id'));
-            var method = "update";
+            if (!req.param("id") || !req.param("phoneNumber") || !req.param("phoneNumber").length !== 13) {
+                return res.send(400, "phoneNumber/id Property Missing");
+            }
+
+            var objId = new ObjectId(req.param('id')),
+                method = "update",
+                codeAndNumber = phoneSplit(req.param('phoneNumber'));
             User.native(function(error, collection) {
                 if (error) {
                     utils.showLogs(404, "ERROR", method, controller, error);
@@ -33,11 +38,12 @@ module.exports = {
                         });
                     }
                     console.log('result' + result);
-                    if (result.length != 0) {
+                    if (result.length !== 0) {
                         User.update({
                                 _id: objId
                             }, {
-                                phoneNumber: req.param('phoneNumber')
+                                phoneNumber: codeAndNumber.phone,
+                                interCode: codeAndNumber.codeInternational
                             })
                             .exec(function(error, user) {
                                 if (error) {
@@ -47,6 +53,12 @@ module.exports = {
                                         "data": error
                                     });
                                 } else {
+                                    var instanceId = new gcm.InstanceId(APPROVED_API_KEY_INSTANCEID);
+                                    instanceId.addToTopicNoRetry('TOPIC_NAME', 'SUBSCRIBER_TOKEN', function(err, response) {
+                                        if (err) console.error(err);
+                                        else console.log(response);
+                                    });
+
                                     utils.showLogs(200, "OK", method, controller, 0);
                                     return res.send(200, {
                                         "message": "mobilePhone updated",
@@ -112,7 +124,7 @@ module.exports = {
                                     'token': exist[i].token,
                                     'phoneNumber': exist[i].phoneNumber,
                                     'imageUser': exist[i].imageUser
-                                })
+                                });
                             }
                             console.log('getFriends' + friedsToDevices);
 
@@ -122,8 +134,8 @@ module.exports = {
                                 "data": friedsToDevices
                             });
 
-                            var APPROVED_API_KEY_INSTANCEID = process.env.APPROVED_API_KEY_INSTANCEID
-                                // Set up the Instance ID with you API key
+                            var APPROVED_API_KEY_INSTANCEID = process.env.APPROVED_API_KEY_INSTANCEID;
+                            // Set up the Instance ID with you API key
                             var instanceId = new gcm.InstanceId(APPROVED_API_KEY_INSTANCEID);
 
                             // Subscribe many frieds tokens to a topic
@@ -138,22 +150,49 @@ module.exports = {
         }
     },
     /**
-         Function that captures req.params String and return an array of characters
-         data   = char1,char2,charN
-         return = [array of numbers]
-        **/
+     Function that captures req.params String and return an array of characters
+     data   = char1,char2,charN
+     return = [array of numbers]
+     **/
 
     function convertString(data) {
 
-        arra = data.split("'");
-        var texto = [];
+        var arra = data.split(", ");
+        var number = [];
         for (i = 0; i < arra.length; i++) {
-            if (arra[i].length == 14) {
-                texto.push(arra[i]);
-            }else{
-                console.log('its phoneNumber dont aproved length policy for: +57 3XXXXXXXXX')
+
+            if (arra[i].length == 10) {
+                number.push(arra[i]);
+            } else if (arra[i].length == 12) {
+                var only10 = arra[i].substr(2, 10);
+                number.push(only10);
+            } else {
+                console.log('its phoneNumber dont aproved length policy for: IC3XXXXXXXXX');
             }
+
         }
-        return texto;
+        return number;
+
+    },
+    /**
+     Function that captures req.param("phoneNumber") String and return a  split varible on code & phone
+     data   = phoneNumber
+     return = {interCode: codeInternational,
+            phoneNumber: phone}
+     **/
+
+    function phoneSplit(data) {
+
+        var codeNumber = {};
+
+        var code = data.substring(0, 3);
+        var phone = data.substring(3, 13);
+        codeNumber = {
+            interCode: codeInternational,
+            phoneNumber: phone
+        };
+
+        return codeNumber;
 
     }
+};

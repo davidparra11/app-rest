@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 module.exports = {
 	showLogs: function (code, response, method, controller, errorInfo) {
 
 		var logsGlobal = process.env.LOGS_GLOBAL;
 
 		if (logsGlobal) {
-			if (errorInfo = 1) {
+			if (errorInfo === 1) {
 				sails.log.error({
 					"code": code,
 					"response": response,
@@ -21,7 +21,7 @@ module.exports = {
 				});
 			}
 		} else {
-			sails.log("Logs has been disabled")
+			sails.log("Logs has been disabled");
 		}
 	}
 

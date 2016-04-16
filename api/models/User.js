@@ -35,6 +35,10 @@ module.exports = {
             size: 15,
             unique: true
         },
+        interCode: {
+            type: 'string',
+            defaultsTo: '+57'
+        },
 
         encryptedPassword: {
             type: 'string',
@@ -75,14 +79,8 @@ module.exports = {
 
         imageUser: {
             type: 'string',
-            defaultsTo: 1
+            defaultsTo: 'http://vignette3.wikia.nocookie.net/the-enigma-corporation/images/0/01/Users-User-icon.png/revision/latest?cb=20140213102228'
         },
-        /*  password: {
-         type: 'string',
-         required: true,
-         columnName: 'encrypted_password'
-         },
-         */
         // The timestamp when the the user last logged in
         // (i.e. sent a username and password to the server)
         lastLoggedIn: {

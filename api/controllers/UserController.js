@@ -17,7 +17,6 @@ module.exports = {
     login: function(req, res) {
 
         var method = "login";
-
         User.find({
                 username: req.param('username')
             })
