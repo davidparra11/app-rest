@@ -12,7 +12,7 @@ module.exports = {
         //update mobilePhone number.
         update: function(req, res) {
 
-            if (!req.param("id") || !req.param("phoneNumber") || !req.param("phoneNumber").length !== 13) {
+            if (!req.param("id") || !req.param("phoneNumber") || !req.param("phoneNumber").length === 13) {
                 return res.send(400, "phoneNumber/id Property Missing");
             }
 
