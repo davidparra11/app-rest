@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var spawn = require('child_process').spawn, node;
-
+var eslint = require('gulp-eslint');
+var files = ['api/**/*.js', '!node_modules/**', '!api/responses/*.js'];
 
 gulp.task('server', function () {
     if (node) node.kill()
@@ -19,9 +20,6 @@ gulp.task('default', function () {
     });
 
 });
-
-var eslint = require('gulp-eslint');
-var files = ['api/**/*.js', '!node_modules/**', '!api/responses/*.js'];
 
 gulp.task('lint', function () {
     return gulp.src(files)
