@@ -1,5 +1,5 @@
 var sails = require('sails');
-
+//TODO: agregarlo como una tarea en gulp
 before(function(done) {
 
   // Increase the Mocha timeout so that Sails has enough time to lift.
