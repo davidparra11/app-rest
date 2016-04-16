@@ -13,4 +13,15 @@ describe('UserController', function() {
     });
   });
 
+  describe('#login()', function() {
+    it('login user sergio when pass username and pass', function (done) {
+      request(sails.hooks.http.app)
+          .post('/login/')
+          .send({ username: 'sergio', password: 'sergio' })
+          .expect(200, done);
+
+
+    });
+  });
+
 });
