@@ -30,18 +30,17 @@ gulp.task('lint', function () {
         .pipe(eslint.failAfterError());
 });
 
-gulp.task('test', () => {
-    return gulp.src('test/integration/**/*.test.js', {read: false})
-        // gulp-mocha needs filepaths so you can't have any plugins before it
-        .pipe(mocha({reporter: 'nyan'}));
-});
 
-gulp.task('coverage', function () {
+gulp.task('pre-test', function () {
   return gulp.src(files)
-        // Covering files
+    // Covering files
     .pipe(istanbul())
     // Force `require` to return covered files
-    .pipe(istanbul.hookRequire())
+    .pipe(istanbul.hookRequire());
+});
+
+gulp.task('test', ['pre-test'], function () {
+  return gulp.src(['test/integration/**/*.test.js'])
     .pipe(mocha())
     // Creating the reports after tests ran
     .pipe(istanbul.writeReports())
