@@ -29,9 +29,7 @@ module.exports.connections = {
   *                                                                          *
   ***************************************************************************/
 
-  localDiskDb: {
-    adapter: 'sails-disk'
-  },
+
 
   /***************************************************************************
   *                                                                          *
@@ -41,13 +39,7 @@ module.exports.connections = {
   * Run: npm install sails-mysql                                             *
   *                                                                          *
   ***************************************************************************/
-  someMysqlServer: {
-    adapter: 'sails-mysql',
-    host: 'YOUR_MYSQL_SERVER_HOSTNAME_OR_IP_ADDRESS',
-    user: 'YOUR_MYSQL_USER',
-    password: 'YOUR_MYSQL_PASSWORD',
-    database: 'YOUR_MYSQL_DB'
-  },
+
 
   /***************************************************************************
   *                                                                          *
@@ -75,27 +67,13 @@ module.exports.connections = {
   *                                                                          *
   *                                                                          *
   ***************************************************************************/
-  somePostgresqlServer: {
-    adapter: 'sails-postgresql',
-    host: 'YOUR_POSTGRES_SERVER_HOSTNAME_OR_IP_ADDRESS',
-    user: 'YOUR_POSTGRES_USER',
-    password: 'YOUR_POSTGRES_PASSWORD',
-    database: 'YOUR_POSTGRES_DB'
-  },
+
 
 mongoProduction: {
     adapter: 'sails-mongo',
     url: process.env.MONGOLAB_URI,
     schema : true
-},
-  mongodb: {
-    adapter   : 'sails-mongo',
-    host      : '52.33.133.243',
-    port      : 27017,
-    user      : 'placeuser',
-    password  : '12345678',
-    database  : 'place'
-  },
+}
 
 
 
