@@ -78,6 +78,4 @@ module.exports = function(grunt) {
 	invokeConfigFn(taskConfigurations);
 	invokeConfigFn(registerDefinitions);
 
-
-
 };
