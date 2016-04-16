@@ -1,3 +1,4 @@
+'use strict';
 module.exports = function isAuth (req, res, next) {
 
 	var APPROVED_API_KEY = process.env.APPROVED_API_KEY || '';

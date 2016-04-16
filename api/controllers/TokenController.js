@@ -1,3 +1,4 @@
+'use strict';
 /**
  * Created by HP error4 V0error4 on 22/03/20error6.
  */
