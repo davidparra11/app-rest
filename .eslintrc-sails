@@ -1,0 +1,10 @@
+{
+	"globals": {
+		"sails": true,
+		"RegisterController": true,
+		"TokenController": true,
+		"UserController": true,
+		"User": true,
+		"Utils": true
+	}
+}

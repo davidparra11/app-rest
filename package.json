@@ -20,6 +20,7 @@
     "grunt-sails-linker": "~0.10.1",
     "grunt-sync": "0.2.4",
     "gulp": "^3.9.1",
+    "gulp-eslint": "^2.0.0",
     "include-all": "~0.1.6",
     "kerberos": "0.0.18",
     "machinepack-gravatar": "^1.2.0",
