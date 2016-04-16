@@ -31,13 +31,13 @@ gulp.task('lint', function () {
 });
 
 gulp.task('test', () => {
-    return gulp.src('test/*.test.js', {read: false})
+    return gulp.src('test/integration/**/*.test.js', {read: false})
         // gulp-mocha needs filepaths so you can't have any plugins before it
         .pipe(mocha({reporter: 'nyan'}));
 });
 
 gulp.task('coverage', function () {
-  return gulp.src(['test/*.js'])
+  return gulp.src(files)
         // Covering files
     .pipe(istanbul())
     // Force `require` to return covered files
