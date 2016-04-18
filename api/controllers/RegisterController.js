@@ -112,8 +112,6 @@ module.exports = {
                     } else {
                         var friedsToDevices = [];
                         var friendsTokens = [];
-
-
                         for (i = 0; i < exist.length; i++) {
                             var onlyNumber = exist[i].phoneNumber.split(" ");
                             friedsToDevices.push(onlyNumber[1]);
@@ -160,7 +158,6 @@ function convertString(data) {
     var arra = data.split(", ");
     var number = [];
     for (i = 0; i < arra.length; i++) {
-
         if (arra[i].length == 10) {
             number.push(arra[i]);
         } else if (arra[i].length == 12) {
@@ -169,9 +166,7 @@ function convertString(data) {
         } else {
             console.log('its phoneNumber dont aproved length policy for: IC3XXXXXXXXX');
         }
-
         return number;
-
     };
 
 
@@ -183,15 +178,13 @@ function convertString(data) {
                     phoneNumber: phone}
  **/
 function phoneSplit(data) {
-    console.log('corriendo la func ');
-    //var codeNumber = {};
+
     var codeInternational = data.substring(0, 3);
     var phone = data.substring(3, 13);
     var codeNumber = {
         interCode: codeInternational,
         phoneNumber: phone
     };
-    console.log('dentro de la func ' + codeNumber['phoneNumber']);
-    return codeNumber;
 
+    return codeNumber;
 };
