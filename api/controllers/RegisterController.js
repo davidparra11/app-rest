@@ -15,11 +15,9 @@ module.exports = {
         if (!req.param("id") || !req.param("phoneNumber") || req.param("phoneNumber").length !== 13) {
             return res.send(400, "phoneNumber/id Property Missing");
         }
-
         var objId = new ObjectId(req.param('id')),
             method = "update",
             codeAndNumber = phoneSplit(req.param('phoneNumber'));
-        console.log('codeAN' + codeAndNumber.interCode);
         User.native(function (error, collection) {
             if (error) {
                 utils.showLogs(404, "ERROR", method, controller, error);
@@ -54,17 +52,17 @@ module.exports = {
                                     "data": error
                                 });
                             } else {
-                                var instanceId = new gcm.InstanceId(process.env.APPROVED_API_KEY_INSTANCEID);
+                               /* var instanceId = new gcm.InstanceId(process.env.APPROVED_API_KEY_INSTANCEID);
                                 instanceId.addToTopicNoRetry('TOPIC_NAME', 'cEyLywsLzAs:APA91bFtxqP-ugT6KH071q1IQOjSnwWfX9s3uzEOui_Vyq43qrVGfCSOpT5jHG9sQW7a-O8ssMBrru0S04gWV50t80h2KNqGGZ_QUM016-uC2rz1fB4y8nIl_LADOXr-iO_JW2hMxe68', function (err, response) {
                                     if (err) console.error(err);
                                     else console.log(response);
-                                });
-
+                                });*/
+                                console.log('user ' + user[0].username);
                                 utils.showLogs(200, "OK", method, controller, 0);
                                 return res.send(200, {
                                     "message": "mobilePhone updated",
                                     "data": [{
-                                        id: user.id
+                                        username: user[0].username
                                     }]
                                 });
                             }
@@ -175,29 +173,8 @@ function convertString(data) {
         return number;
 
     };
-    /**
-     Function that captures req.param("phoneNumber") String and return a  split varible on code & phone
-     data   = phoneNumber
-     return = {interCode: codeInternational,
-            phoneNumber: phone}
-     **/
-
-    function phoneSplit(data) {
-
-        var codeNumber = {};
-
-        var codeInternational = data.substring(0, 3);
-        var phone = data.substring(3, 13);
-        codeNumber = {
-            interCode: codeInternational,
-            phoneNumber: phone
-        };
-
-        return codeNumber;
 
 
-    }
-    return number;
 };
 /**
  Function that captures req.param("phoneNumber") String and return a  split varible on code & phone
@@ -210,7 +187,7 @@ function phoneSplit(data) {
     //var codeNumber = {};
     var codeInternational = data.substring(0, 3);
     var phone = data.substring(3, 13);
-     var codeNumber = {
+    var codeNumber = {
         interCode: codeInternational,
         phoneNumber: phone
     };
