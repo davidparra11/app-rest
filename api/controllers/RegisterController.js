@@ -185,7 +185,7 @@ module.exports = {
 
         var codeNumber = {};
 
-        var code = data.substring(0, 3);
+        var codeInternational = data.substring(0, 3);
         var phone = data.substring(3, 13);
         codeNumber = {
             interCode: codeInternational,
