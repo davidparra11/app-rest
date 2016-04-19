@@ -40,7 +40,7 @@ gulp.task('pre-test', function () {
 });
 
 gulp.task('test', ['pre-test'], function () {
-  return gulp.src(['test/integration/**/*.test.js'])
+  return gulp.src(['test/bootstrap.test.js','test/integration/**/*.test.js'])
     .pipe(mocha())
     // Creating the reports after tests ran
     .pipe(istanbul.writeReports())
