@@ -20,7 +20,6 @@ describe('UserController', function() {
           .send({ username: 'sergio', password: 'sergio' })
           .expect(200, done);
 
-
     });
   });
 

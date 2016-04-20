@@ -40,7 +40,7 @@
   "scripts": {
     "debug": "node debug app.js",
     "start": "node app.js",
-    "test": "mocha test/bootstrap.test.js test/integration/**/*.test.js test/fixtures/unitRegister.test.js"
+    "test": "mocha test/bootstrap.test.js test/integration/**/*.test.js"
   },
   "engines": {
     "node": "0.12.7"
