@@ -81,14 +81,14 @@ module.exports = {
     getFriends: function (req, res) {
 
         var method = "getFriends";
-        var topicPhoneNumber = req.param('topicPhoneNumber'); //var which is used to create a topic for this current person
-        var ar = convertString(req.param('arrayAgenda'));
+        var topicPhoneNumber = req.param('phoneNumber'); //var which is used to create a topic for this current person
+        var arrayPhone = convertString(req.param('agenda'));
 
         User.native(function (err, collection) {
             if (err) return res.serverError(err);
             collection.find({
                     phoneNumber: {
-                        $in: ar
+                        $in: arrayPhone
                     }
                 }) //req.param('arrayAgenda')['311','321']
                 .toArray(function (error, exist) {
