@@ -3,7 +3,7 @@ var spawn = require('child_process').spawn, node;
 var eslint = require('gulp-eslint');
 var files = ['api/**/*.js', '!node_modules/**', '!api/responses/*.js'];
 var istanbul = require('gulp-istanbul');
-const mocha = require('gulp-mocha');
+//const mocha = require('gulp-mocha');
 
 gulp.task('server', function () {
     if (node) node.kill()

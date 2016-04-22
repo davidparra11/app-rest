@@ -9,6 +9,8 @@ var gcm = require('node-gcm-iid'),
 
 //make it just when the account has been verified with text message. params: (id, phoneNumber)
 module.exports = {
+
+
     //update mobilePhone number.
     update: function (req, res) {
 
@@ -17,7 +19,7 @@ module.exports = {
         }
         var objId = new ObjectId(req.param('id')),
             method = "update",
-            codeAndNumber = phoneSplit(req.param('phoneNumber'));
+            codeAndNumber = utils.phoneSplit(req.param('phoneNumber'));
         User.native(function (error, collection) {
             if (error) {
                 utils.showLogs(404, "ERROR", method, controller, error);
@@ -42,7 +44,7 @@ module.exports = {
                             _id: objId
                         }, {
                             phoneNumber: codeAndNumber.phoneNumber,
-                            interCode: codeAndNumber.interCode
+                           // interCode: codeAndNumber.interCode
                         })
                         .exec(function (error, user) {
                             if (error) {
@@ -51,7 +53,7 @@ module.exports = {
                                     "message": "Error updating phoneNumber user",
                                     "data": error
                                 });
-                            } else {
+                            } else {                            
                                /* var instanceId = new gcm.InstanceId(process.env.APPROVED_API_KEY_INSTANCEID);
                                 instanceId.addToTopicNoRetry('TOPIC_NAME', 'cEyLywsLzAs:APA91bFtxqP-ugT6KH071q1IQOjSnwWfX9s3uzEOui_Vyq43qrVGfCSOpT5jHG9sQW7a-O8ssMBrru0S04gWV50t80h2KNqGGZ_QUM016-uC2rz1fB4y8nIl_LADOXr-iO_JW2hMxe68', function (err, response) {
                                     if (err) console.error(err);
@@ -82,7 +84,7 @@ module.exports = {
 
         var method = "getFriends";
         var topicPhoneNumber = req.param('topicPhoneNumber'); //var which is used to create a topic for this current person
-        var ar = convertString(req.param('arrayAgenda'));
+        var ar = utils.convertString(req.param('arrayAgenda'));
 
         User.native(function (err, collection) {
             if (err) return res.serverError(err);
@@ -145,47 +147,7 @@ module.exports = {
                 });
         });
     }
+
+
+    
 };
-
-/**
- Function that captures req.params String and return an array of characters
- data   = char1,char2,charN
- return = [array of numbers]
- **/
-
-function convertString(data) {
-
-    var arra = data.split(", ");
-    var number = [];
-    for (i = 0; i < arra.length; i++) {
-        if (arra[i].length == 10) {
-            number.push(arra[i]);
-        } else if (arra[i].length == 12) {
-            var only10 = arra[i].substr(2, 10);
-            number.push(only10);
-        } else {
-            console.log('its phoneNumber dont aproved length policy for: IC3XXXXXXXXX');
-        }
-        return number;
-    };
-
-
-};
-/**
- Function that captures req.param("phoneNumber") String and return a  split varible on code & phone
- data   = phoneNumber
- return = {interCode: codeInternational,
-                    phoneNumber: phone}
- **/
-function phoneSplit(data) {
-
-    var codeInternational = data.substring(0, 3);
-    var phone = data.substring(3, 13);
-    var codeNumber = {
-        interCode: codeInternational,
-        phoneNumber: phone
-    };
-
-    return codeNumber;
-};
-
