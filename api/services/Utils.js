@@ -34,6 +34,7 @@ module.exports = {
 
 		var arra = data.split(", ");
 		var number = [];
+		var i = 0;
 		for (i = 0; i < arra.length; i++) {
 			if (arra[i].length == 10) {
 				number.push(arra[i]);

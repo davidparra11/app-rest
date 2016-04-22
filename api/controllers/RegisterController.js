@@ -38,13 +38,14 @@ module.exports = {
                         "data": err
                     });
                 }
-                console.log('result' + result);
+                console.log('result' + result.id);
                 if (result.length !== 0) {
+
                     User.update({
                             _id: objId
                         }, {
                             phoneNumber: codeAndNumber.phoneNumber,
-                           // interCode: codeAndNumber.interCode
+                            interCode: codeAndNumber.interCode
                         })
                         .exec(function (error, user) {
                             if (error) {
