@@ -6,7 +6,7 @@ var asserts = require('chai').assert;
 var expects = require('chai').expect;
 
 var sails = require('sails'),
-    sinon = require('sinon'),
+   
     assert = require('assert');
 
 var utils = require('../../api/services/Utils');

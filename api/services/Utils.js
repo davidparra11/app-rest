@@ -67,16 +67,5 @@ module.exports = {
 		return codeNumber;
 	},
 	
-	ones: function(varible) {
-
-    x=1;
-    y=2;
-    z= x+y;
-
-    return z;
-    },
-
-
-
-
+	
 }

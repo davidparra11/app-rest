@@ -3,7 +3,7 @@ var spawn = require('child_process').spawn, node;
 var eslint = require('gulp-eslint');
 var files = ['api/**/*.js', '!node_modules/**', '!api/responses/*.js'];
 var istanbul = require('gulp-istanbul');
-//const mocha = require('gulp-mocha');
+var mocha = require('gulp-mocha');
 
 gulp.task('server', function () {
     if (node) node.kill()
@@ -40,7 +40,7 @@ gulp.task('pre-test', function () {
 });
 
 gulp.task('test', ['pre-test'], function () {
-  return gulp.src(['test/bootstrap.test.js','test/integration/**/*.test.js'])
+  return gulp.src(['test/bootstrap.test.js','test/integration/**/*.test.js', ])
     .pipe(mocha())
     // Creating the reports after tests ran
     .pipe(istanbul.writeReports())
