@@ -73,7 +73,7 @@ module.exports = {
                         phoneNumber: {
                             $in: ar
                         }
-                    }) //req.param('arrayAgenda')['311','321']
+                    }) 
                     .toArray(function(error, exist) {
                         if (error) {
                             utils.showLogs(404, "ERROR", method, controller, error);
@@ -117,84 +117,5 @@ module.exports = {
 
                     });
             });
-        },
-
-
-
-        follow: function(req, res) {
-
-                var method = "follow";
-                var phoneNumber = req.param('phoneNumber');
-                var toFollow = req.param('toFollow');
-                var instanceId = new gcm.InstanceId(process.env.APPROVED_API_KEY_INSTANCEID);
-
-
-
-                User.native(function(error, collection) {
-                        if (error) {
-                            utils.showLogs(404, "ERROR", method, controller, error);
-                            return res.send(404, {
-                                "message": "Error getting user",
-                                "data": error
-                            });
-                        }
-                        collection.find({
-                            phoneNumber: toFollow
-                        }).toArray(function(err, result) {
-                            if (err) {
-                                utils.showLogs(404, "ERROR", method, controller, err);
-                                return res.send(404, {
-                                    "message": "Error to find user with phoneNumber",
-                                    "data": err
-                                });
-                            }
-
-
-                            console.log('result' + result.token);
-                            if (result.length !== 0) {
-                                instanceId.addToTopicNoRetry(phoneNumber, result.token, function(err, response) {
-                                    if (err) console.error(err);
-                                });
-
-
-                                Topic.create({
-                                        topicName: phoneNumber,
-                                        token: result.token,
-                                        // Set the User's Primary Key to associate the Pet with the User.
-                                        owner: result.id
-                                    })
-                                    .exec(function(error, user) {
-                                            if (error) {
-                                                utils.showLogs(404, "ERROR", method, controller, error);
-                                                return res.send(404, {
-                                                    "message": "Error updating on Topic collection",
-                                                    "data": error
-                                                });
-                                            } else {
-
-                                                utils.showLogs(200, "OK", method, controller, 0);
-                                                return res.send(200, {
-                                                    "message": "mobilePhone updated",
-                                                    "data": [{
-                                                        username: user[0].username
-                                                    }]
-                                                });
-                                            }
-
-
-
-                                        } else {
-                                            utils.showLogs(400, "WARNING", method, controller, 0);
-                                            return res.send(400, {
-                                                "message": "Id does not exist",
-                                                "data": []
-                                            });
-                                        }
-                                    });
-                        });
-
-                    }
-
-
-
+        }
                 };
