@@ -24,7 +24,6 @@ module.exports = {
             sails.log("Logs has been disabled");
         }
     },
-
     /**
  Function that captures req.params String and return an array of characters
  data   = char1,char2,charN
@@ -46,8 +45,6 @@ module.exports = {
             }
             return number;
         };
-
-
     },
     /**
      Function that captures req.param("phoneNumber") String and return a  split varible on code & phone
@@ -66,6 +63,4 @@ module.exports = {
 
         return codeNumber;
     },
-    
- 
 }
