@@ -8,28 +8,29 @@
 
 module.exports = {
 
-    tableName: 'topics',
+    tableName: 'friends',
 
 
     attributes: {
 
-        topicName: {
+        followerId: {
             type: 'string',
             required: true,
             unique: true
         },
 
-        token: {
+        friendId: {
             type: 'string',
             required: true,
             unique: true
         },
 
-        owners: {
-      		model: 'user',
-      		via: 'topics'
-   		 }
+        relations: {
+            model: 'user',
+            via: 'friends',
+            dominant: true
+        }
 
-        
+
     }
 };
