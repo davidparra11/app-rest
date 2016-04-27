@@ -85,7 +85,7 @@ module.exports = {
         friends: {
             collection: 'friends',
             via: 'relations'
-        }
+        },
         // The timestamp when the the user last logged in
         // (i.e. sent a username and password to the server)
         lastLoggedIn: {

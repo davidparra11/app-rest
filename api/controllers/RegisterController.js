@@ -10,9 +10,8 @@ var gcm = require('node-gcm-iid'),
 //make it just when the account has been verified with text message. params: (id, phoneNumber)
 module.exports = {
 
-
     //update mobilePhone number.
-    update: function(req, res) {
+    update: function (req, res) {
 
         if (!req.param("id") || !req.param("phoneNumber") || req.param("phoneNumber").length !== 13) {
             return res.send(400, "phoneNumber/id Property Missing");
@@ -62,13 +61,13 @@ module.exports = {
         });
     },
     //attemp to get the users from our databases when pass array of agenda numbers.
-    getFriends: function(req, res) {
+    getFriends: function (req, res) {
 
         var method = "getFriends";
         var agenda = utils.convertString(req.param('agenda'));
 
         User.native(function(error, collection) {
-            if (error) return res.serverError(err);
+            if (error) return res.serverError(error);
             collection.find({
                     phoneNumber: {
                         $in: agenda
