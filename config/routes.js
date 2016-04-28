@@ -47,7 +47,7 @@ module.exports.routes = {
      ***************************************************************************/
 
     //recursos para los usuarios
-    'get /user/:username': {
+    'get /user/': {
         controller: 'UserController',
         action: 'find'
     },

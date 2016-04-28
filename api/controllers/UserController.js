@@ -9,7 +9,7 @@
 var Passwords = require('machinepack-passwords'),
     controller = "Usercontroller",
     ObjectId = require('sails-mongo/node_modules/mongodb').ObjectID,
-    utils = require('../services/Utils');
+    utils = require('../utils/Utils');
 
 module.exports = {
 
@@ -188,6 +188,7 @@ module.exports = {
                 username: req.param('username')
             })
             .exec(function(error, user) {
+                console.log('user ' + user);
                 if (error) {
                     utils.showLogs(404, "ERROR", method, controller, error);
                     return res.send(404, {
