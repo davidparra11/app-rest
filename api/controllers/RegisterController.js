@@ -10,7 +10,6 @@ var gcm = require('node-gcm-iid'),
 //make it just when the account has been verified with text message. params: (id, phoneNumber)
 module.exports = {
 
-
         //update mobilePhone number.
         update: function(req, res) {
 

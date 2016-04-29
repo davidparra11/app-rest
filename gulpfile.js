@@ -4,6 +4,8 @@ var eslint = require('gulp-eslint');
 var files = ['api/**/*.js', '!node_modules/**', '!api/responses/*.js'];
 var istanbul = require('gulp-istanbul');
 var mocha = require('gulp-mocha');
+var jasmine = require('gulp-jasmine');
+var jasmines = require('gulp-jasmine-phantom');
 
 gulp.task('server', function () {
     if (node) node.kill()
@@ -47,3 +49,16 @@ gulp.task('test', ['pre-test'], function () {
     // Enforce a coverage of at least 90%
     .pipe(istanbul.enforceThresholds({ thresholds: { global: 90 } }));
 });
+
+
+gulp.task('unitest', ['pre-test'], function () {
+    return gulp.src('specs/unit-spec.js')
+        // gulp-jasmine works on filepaths so you can't have any plugins before it 
+        .pipe(jasmines())
+         // Creating the reports after tests ran
+    .pipe(istanbul.writeReports())
+    // Enforce a coverage of at least 90%
+    .pipe(istanbul.enforceThresholds({ thresholds: { global: 90 } }));
+});
+
+

@@ -9,7 +9,7 @@ var sails = require('sails'),
    
     assert = require('assert');
 
-var utils = require('../../api/services/Utils');
+var utils = require('../../api/utils/Utils');
 
 chai.use(utils.convertString());
 var phone = chai.utils.convertString();

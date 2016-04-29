@@ -1,17 +1,16 @@
 var request = require('supertest');
 var ObjectId = require('sails-mongo/node_modules/mongodb').ObjectID;
 
-describe('UserController', function() {
+describe('UserController ', function() {
 
-  describe('#findAll()', function() {
+  describe('#findAll() method', function() {
     it('show me all users', function (done) {
       request(sails.hooks.http.app)
         .get('/users/')
         .send({ name: 'test', password: 'test' })
         .expect(200, done);
-        
-
-    });
+      });
+    
   });
 
   describe('#login()', function() {

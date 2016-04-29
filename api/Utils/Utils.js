@@ -32,7 +32,7 @@ module.exports = {
  **/
     convertString: function(data) {
 
-        var arra = data.split(", ");
+        var arra = data.toString().split(", ");
         var number = [];
         var i = 0;
         for (i = 0; i < arra.length; i++) {
@@ -44,8 +44,9 @@ module.exports = {
             } else {
                 console.log('its phoneNumber dont aproved length policy for: IC3XXXXXXXXX');
             }
-            return number;
+            
         };
+        return number;
 
 
     },
