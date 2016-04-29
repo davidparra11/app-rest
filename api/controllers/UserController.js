@@ -17,6 +17,9 @@ module.exports = {
     login: function(req, res) {
 
         var method = "login";
+        if (!req.param("username") || !req.param("password")) {
+            return res.send(400, "username/password Property Missing");
+        }
         User.find({
                 username: req.param('username')
             })
@@ -31,7 +34,7 @@ module.exports = {
                     if (user[0] == null) {
                         utils.showLogs(403, "not found", method, controller, 0);
                         return res.send(403, {
-                            "message": "not found information about this person",
+                            "message": "not found information about this person (username dont exist)",
                             "data": user
                         });
                     } else {
@@ -48,7 +51,7 @@ module.exports = {
                             incorrect: function() {
                                 utils.showLogs(404, "error when compare both password", method, controller, 0);
                                 return res.send(404, {
-                                    "message": "error when compare both password",
+                                    "message": "error when compare both password (wrong password)",
                                     "data": [{
                                         id: user[0].id
                                     }]
@@ -57,7 +60,7 @@ module.exports = {
                             success: function() {
                                 utils.showLogs(200, "OK", method, controller, 0);
                                 return res.send(200, {
-                                    "message": "User data retrieved.",
+                                    "message": "User loged and data retrieved.",
                                     "data": [{
                                         id: user[0].id
                                     }]
@@ -102,6 +105,9 @@ module.exports = {
 
     //Method to create persons who sign up our app.
     create: function(req, res) {
+        if (!req.param("email") || !req.param("username") || !req.param("password")) {
+            return res.send(400, "username/password/email Property Missing");
+        }
         var method = "create";
         var Passwords = require('machinepack-passwords');
         // Encrypt a string using the BCrypt algorithm.
@@ -111,7 +117,7 @@ module.exports = {
         }).exec({
             // An unexpected error occurred.
             error: function(err) {
-                utils.showLogs(404, "ERROR", method, controller, 1);
+                utils.showLogs(404, "ERROR", method, controller, err);
                 return res.send(404, {
                     "message": "Error when the pass has benn encrypted",
                     "data": err
@@ -129,7 +135,7 @@ module.exports = {
                         // Create a User with the params sent from
                         // the sign-up form --> signup.ejs
                         User.find({
-                                email: req.param('username')
+                                email: req.param('email')
                             }) //changed username by email property
                             .exec(function(error, exist) {
                                 if (error) {
@@ -206,50 +212,45 @@ module.exports = {
     },
 
     unsubscribe: function(req, res) {
+
+        if (!req.param("id") || !req.param("state")) {
+            return res.send(400, "state/id Property Missing");
+        }
         var method = "unsubscribe";
         var objId = new ObjectId(req.param('id'));
         console.log(objId);
-        if (!req.param('id')) {
-            utils.showLogs(400, "WARNING", method, controller, 0);
-            return res.send(404, {
-                "message": "invalid parameter, id required",
-                "data": []
-            });
-        } else {
-            User.native(function(err, collection) {
-                if (err) {
-                    utils.showLogs(404, "ERROR", method, controller, err);
-                    return res.send(404, {
-                        "message": "Error to get user",
-                        "data": error
-                    });
+
+        User.native(function(error, collection) {
+            if (error) {
+                utils.showLogs(405, "ERROR", method, controller, error);
+                return res.send(405, {
+                    "message": "Error on unsubscribe method (not Allowed)",
+                    "data": error
+                });
+            }
+            collection.findOneAndUpdate({
+                _id: objId
+            }, {
+                $set: {
+                    active: req.param('state')
                 }
-                collection.find({
-                    _id: objId
-                }).toArray(function(err, result) {
-                    if (err) return res.negotiate(err);
-                    console.log('result' + result);
+            }, {
+                returnOriginal: false,
+                upsert: false
+            }, function(err, result) {
+                if (err) {
+                    utils.showLogs(403, "ERROR", method, controller, err);
+                    return res.send(403, {
+                        "message": "Error to get user by Id (Error updating state user)",
+                        "data": err
+                    });
+                } else {
                     if (result.length != 0) {
-                        User.update({
-                                _id: objId
-                            }, {
-                                active: req.param('active')
-                            })
-                            .exec(function(error, user) {
-                                if (error) {
-                                    utils.showLogs(404, "ERROR", method, controller, error);
-                                    return res.send(404, {
-                                        "message": "Error updating user",
-                                        "data": error
-                                    });
-                                } else {
-                                    utils.showLogs(200, "OK", method, controller, 0);
-                                    return res.send(200, {
-                                        "message": "Update success",
-                                        "data": [user[0]]
-                                    });
-                                }
-                            });
+                        utils.showLogs(200, "OK", method, controller, 0);
+                        return res.send(200, {
+                            "message": "OK User state updated and success process",
+                            "data": result.value.username
+                        });
                     } else {
                         utils.showLogs(404, "WARNING", method, controller, 0);
                         return res.send(404, {
@@ -257,10 +258,9 @@ module.exports = {
                             "data": []
                         });
                     }
-                });
-            }); 
-
-        }
+                }
+            });
+        });
     },
 
     //delete count for weird cases users
@@ -310,57 +310,58 @@ module.exports = {
     },
 
     update: function(req, res) {
+
+        if (!req.param("id") || !req.param("firstName") || !req.param("lastName")) {
+            return res.send(400, "firstName/lastName/id Property Missing");
+        }
+
         var method = "update";
         var objId = new ObjectId(req.param('id'));
-        if (!req.param('id')) {
-            utils.showLogs(400, "WARNING", method, controller, 0);
-            return res.send(400, {
-                "message": "invalid parameter",
-                "data": []
-            });
-        } else {
-            User.native(function(err, collection) {
+
+
+        User.native(function(error, collection) {
+            if (error) {
+                utils.showLogs(405, "ERROR", method, controller, error);
+                return res.send(405, {
+                    "message": "Error on update method (not Allowed)",
+                    "data": error
+                });
+            }
+            collection.findOneAndUpdate({
+                _id: objId
+            }, {
+                $set: req.allParams()
+            }, {
+                returnOriginal: false,
+                upsert: false
+            }, function(err, result) {
                 if (err) {
-                    utils.showLogs(404, "ERROR", method, controller, err);
-                    return res.send(404, {
-                        "message": "Error to get user",
-                        "data": error
+                    utils.showLogs(403, "ERROR", method, controller, err);
+                    return res.send(403, {
+                        "message": "Error to get user by Id (Error updating user)",
+                        "data": err
                     });
-                }
-                collection.find({
-                    _id: objId
-                }).toArray(function(err, result) {
-                    if (err) return res.negotiate(err);
-                    console.log('result' + result);
+                } else {
                     if (result.length != 0) {
-                        User.update({
-                                _id: objId
-                            }, req.allParams())
-                            .exec(function(error, user) {
-                                if (error) {
-                                    utils.showLogs(404, "ERROR", method, controller, 1);
-                                    return res.send(404, {
-                                        "message": "Error updating person",
-                                        "data": error
-                                    });
-                                } else {
-                                    utils.showLogs(200, "OK", method, controller, 0);
-                                    return res.send(200, {
-                                        "message": "Update successr",
-                                        "data": [user[0].id]
-                                    });
-                                }
-                            });
+                        utils.showLogs(200, "OK", method, controller, 0);
+                        return res.send(200, {
+                            "message": "OK User updated and success process",
+                            "data": result.value.username
+                        });
+
                     } else {
-                        utils.showLogs(400, "WARNING", method, controller, 0);
-                        return res.send(400, {
+                        utils.showLogs(404, "WARNING", method, controller, 0);
+                        return res.send(404, {
                             "message": "Id does not exist",
                             "data": []
                         });
                     }
-                });
+                }
             });
-        } 
+        });
+
+
+
     }
 
 };
