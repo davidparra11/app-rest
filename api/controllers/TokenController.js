@@ -8,58 +8,57 @@ var utils = require('../utils/Utils'),
 
 module.exports = {
     //update mobile number.  (recibe parametros id, token)
-    update: function (req, res) {
+    update: function(req, res) {
 
+        if (!req.param("id") || !req.param("token")) {
+            return res.send(400, "phoneNumber/id Property Missing");
+        }
         var objId = new ObjectId(req.param('id'));
         var method = "update";
+
         User.native(function(error, collection) {
             if (error) {
-                utils.showLogs(404, "ERROR", method, controller, error);
-                return res.send(404, {
-                    "message": "Error to get user",
+                utils.showLogs(405, "ERROR", method, controller, error);
+                return res.send(405, {
+                    "message": "Error on token method (not Allowed)",
                     "data": error
                 });
             }
-            collection.find({
+            collection.findOneAndUpdate({
                 _id: objId
-            }).toArray(function(err, result) {
+            }, {
+                $set: {
+                    token: req.param('token')
+                }
+            }, {
+                returnOriginal: false,
+                upsert: false
+            }, function(err, r) {
                 if (err) {
-                    utils.showLogs(404, "ERROR", method, controller, err);
-                    return res.send(404, {
-                        "message": "Error to find user",
+                    utils.showLogs(403, "ERROR", method, controller, error);
+                    return res.send(403, {
+                        "message": "Error to get user by Id (Error updating token user)",
                         "data": err
                     });
-                }
-                console.log('result' + result);
-                if (result.length != 0) {
-                    User.update({
-                            _id: objId
-                        }, {
-                            token: req.param('token')
-                        })
-                        .exec(function(error, user) {
-                            if (error) {
-                                utils.showLogs(404, "ERROR", method, controller, error);
-                                return res.send(404, {
-                                    "message": "Error updating token user",
-                                    "data": error
-                                });
-                            } else {
-                                utils.showLogs(200, "OK", method, controller, 0);
-                                return res.send(200, {
-                                    "message": "token updated and success",
-                                    "data": [{
-                                        id: user.id
-                                    }]
-                                });
-                            }
-                        });
                 } else {
-                    utils.showLogs(409, "WARNING", method, controller, 0);
-                    return res.send(409, {
-                        "message": "Id does not exist",
-                        "data": []
-                    });
+                    if (r.length !== 0) {
+                        utils.showLogs(200, "OK", method, controller, 0);
+                        return res.send(200, {
+                            "message": "OK token updated and success process",
+                            "data": r.value.username
+                        });
+                        var instanceId = new gcm.InstanceId(process.env.APPROVED_API_KEY_INSTANCEID);
+                        instanceId.addToTopicNoRetry(r.value.phoneNumber, 'PRUEBAsLzAs:APA91bFtxqP-ugT6KH071q1IQOjSnwWfX9s3uzEOui_Vyq43qrVGfCSOpT5jHG9sQW7a-O8ssMBrru0S04gWV50t80h2KNqGGZ_QUM016-uC2rz1fB4y8nIl_LADOXr-iO_JW2hMxe68', function(err, response) {
+                            if (err) console.error(err);
+                            else console.log(response);
+                        });
+                    } else {
+                        utils.showLogs(404, "WARNING", method, controller, 0);
+                        return res.send(404, {
+                            "message": "Id does not exist",
+                            "data": []
+                        });
+                    }
                 }
             });
         });

@@ -36,7 +36,7 @@ module.exports = {
                 }
             }, {
                 returnOriginal: false,
-                upsert: true
+                upsert: false
             }, function(err, r) {
                 if (err) {
                     utils.showLogs(404, "ERROR", method, controller, error);
@@ -64,6 +64,11 @@ module.exports = {
     getFriends: function (req, res) {
 
         var method = "getFriends";
+
+        if (!req.param("agenda")) {
+            return res.send(400, "agenda Property Missing");
+        }
+
         var agenda = utils.convertString(req.param('agenda'));
 
         User.native(function(error, collection) {
@@ -77,7 +82,7 @@ module.exports = {
                     if (error) {
                         utils.showLogs(404, "ERROR", method, controller, error);
                         return res.send(404, {
-                            "message": "Error finding user",
+                            "message": "Error finding users array",
                             "data": error
                         });
                     }
@@ -86,7 +91,7 @@ module.exports = {
 
                         utils.showLogs(409, "WARNING", method, controller, 0);
                         return res.send(409, {
-                            "message": "Users no exist",
+                            "message": "It´s posible nothing recived number exits on Place",
                             "data": [{
                                 phoneNumber: user
                             }]
