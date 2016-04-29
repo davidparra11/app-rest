@@ -35,7 +35,7 @@ module.exports = {
                 upsert: false
             }, function(err, r) {
                 if (err) {
-                    utils.showLogs(403, "ERROR", method, controller, error);
+                    utils.showLogs(403, "ERROR", method, controller, err);
                     return res.send(403, {
                         "message": "Error to get user by Id (Error updating token user)",
                         "data": err
