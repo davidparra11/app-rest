@@ -24,27 +24,26 @@ module.exports = {
             sails.log("Logs has been disabled");
         }
     },
-
     /**
  Function that captures req.params String and return an array of characters
- data   = char1,char2,charN
+ data   = char1,char2,charN  //array of character which are retrived like aagenda phone numbers from device.
  return = [array of numbers]
  **/
     convertString: function(data) {
 
-        var arra = data.toString().split(", ");
+        var arrayAgenda = data.toString().split(", ");
         var number = [];
         var i = 0;
-        for (i = 0; i < arra.length; i++) {
-            if (arra[i].length == 10) {
-                number.push(arra[i]);
-            } else if (arra[i].length == 12) {
-                var only10 = arra[i].substr(2, 10);
+        for (i = 0; i < arrayAgenda.length; i++) {
+            if (arrayAgenda[i].length == 10) {
+                number.push(arrayAgenda[i]);
+            } else if (arrayAgenda[i].length == 12) {
+                var only10 = arrayAgenda[i].substr(2, 10);
                 number.push(only10);
             } else {
                 console.log('its phoneNumber dont aproved length policy for: IC3XXXXXXXXX');
             }
-            
+
         };
         return number;
 
@@ -67,6 +66,4 @@ module.exports = {
 
         return codeNumber;
     },
-    
- 
 }
