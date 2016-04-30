@@ -35,7 +35,7 @@ module.exports = {
                     interCode: codeAndNumber.interCode
                 }
             }, {
-                returnOriginal: false,
+                returnOriginal: true,
                 upsert: false
             }, function(err, r) {
                 if (err) {
@@ -99,9 +99,12 @@ module.exports = {
                     } else {
                         var friedsToDevices = [];
                         var friendsTokens = [];
+                        var friendsDictionary = [];
+                        var i = 0;
                         for (i = 0; i < user.length; i++) {
                             var onlyNumber = user[i].phoneNumber.split(" ");
-                            friedsToDevices.push(onlyNumber[1]);
+                            //friedsToDevices.push(onlyNumber[1]);
+                            friedsToDevices.push(user[i].phoneNumber);
                             friendsTokens.push(user[i].token);
                             friendsDictionary.push({
                                 'username': user[i].username,

@@ -43,6 +43,7 @@ module.exports = {
                 number.push(only10);
             } else {
                 console.log('its phoneNumber dont aproved length policy for: IC3XXXXXXXXX');
+                
             }
 
         };
