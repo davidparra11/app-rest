@@ -1,7 +1,7 @@
 var request = require('supertest');
 var ObjectId = require('sails-mongo/node_modules/mongodb').ObjectID;
 var x = Math.floor((Math.random() * 1000) + 1);
-var camila = new ObjectId('5723e5cf1d32b6641823f6f5');
+var camila = new ObjectId('57280ea90e4807bc03e33cab');
 
 describe('UserController', function() {
 
