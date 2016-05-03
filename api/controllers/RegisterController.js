@@ -5,7 +5,7 @@
 var gcm = require('node-gcm-iid'),
     controller = "Registercontroller",
     ObjectId = require('sails-mongo/node_modules/mongodb').ObjectID,
-    utils = require('../utils/Utils');
+    utils = require('../utilities/Utils');
 
 //make it just when the account has been verified with text message. params: (id, phoneNumber)
 module.exports = {

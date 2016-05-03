@@ -9,7 +9,7 @@
 var Passwords = require('machinepack-passwords'),
     controller = "Usercontroller",
     ObjectId = require('sails-mongo/node_modules/mongodb').ObjectID,
-    utils = require('../utils/Utils');
+    utils = require('../utilities/Utils');
 
 module.exports = {
 
