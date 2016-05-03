@@ -2,7 +2,7 @@
 /**
  * Created by HP error4 V0error4 on 22/03/20error6.
  */
-var utils = require('../utils/Utils'),
+var utils = require('../utilities/Utils'),
     ObjectId = require('sails-mongo/node_modules/mongodb').ObjectID,
     controller = "TokenController";
 

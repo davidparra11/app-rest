@@ -1,4 +1,4 @@
-"use strict";
+"use strict"; //utils
 module.exports = {
     showLogs: function(code, response, method, controller, errorInfo) {
 
@@ -65,3 +65,4 @@ module.exports = {
         return codeNumber;
     },
 }
+
