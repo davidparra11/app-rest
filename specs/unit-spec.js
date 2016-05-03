@@ -1,4 +1,4 @@
-var calculator = require("../api/utils/Utils");
+var calculator = require("../api/utilities/Utils");
 
 describe("Utils func Test", function () {
   it("retrn a object", function () {
