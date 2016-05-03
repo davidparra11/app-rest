@@ -2,7 +2,7 @@
 module.exports = {
     showLogs: function(code, response, method, controller, errorInfo) {
 
-        var logsGlobal = process.env.LOGS_GLOBAL;
+        var logsGlobal = process.env.LOGS_GLOBAL || true;
 
         if (logsGlobal) {
             if (errorInfo === 0) {
