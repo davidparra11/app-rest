@@ -49,10 +49,10 @@ module.exports = {
                     utils.showLogs(200, "OK", method, controller, 0);
                     return res.send(200, {
                         "message": "OK",
-                        "data": {
+                        "data": [{
                             "id": r.value.id,
                             "username": r.value.username
-                        }
+                        }]
                     });
                     var instanceId = new gcm.InstanceId(process.env.APPROVED_API_KEY_INSTANCEID);
                     instanceId.addToTopicNoRetry(r.value.phoneNumber, 'cEyLywsLzAs:APA91bFtxqP-ugT6KH071q1IQOjSnwWfX9s3uzEOui_Vyq43qrVGfCSOpT5jHG9sQW7a-O8ssMBrru0S04gWV50t80h2KNqGGZ_QUM016-uC2rz1fB4y8nIl_LADOXr-iO_JW2hMxe68', function(err, response) {
