@@ -103,7 +103,6 @@ module.exports = {
                         var i = 0;
                         for (i = 0; i < user.length; i++) {
                             var onlyNumber = user[i].phoneNumber.split(" ");
-                            //friedsToDevices.push(onlyNumber[1]);
                             friedsToDevices.push(user[i].phoneNumber);
                             friendsTokens.push(user[i].token);
                             friendsDictionary.push({
