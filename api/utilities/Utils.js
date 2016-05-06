@@ -33,20 +33,28 @@ module.exports = {
     convertString: function(data) {
 
         var arrayAgenda = data.toString().split(", ");
+        console.log('array Agenda ' + arrayAgenda);
+        console.log('array Agenda1 ' + arrayAgenda[0]);
+        console.log('array Agenda1 length ' + arrayAgenda[1].length);
         var number = [];
+        var others = [];
         var i = 0;
         for (i = 0; i < arrayAgenda.length; i++) {
-            if (arrayAgenda[i].length == 10) {
+            if (arrayAgenda[i].length == 12) {
                 number.push(arrayAgenda[i]);
-            } else if (arrayAgenda[i].length == 12) {
-                var only10 = arrayAgenda[i].substr(2, 10);
+            } else if (arrayAgenda[i].length == 14) {
+                var only10 = arrayAgenda[i].substr(3, 10);
                 number.push(only10);
             } else {
-                console.log('its phoneNumber dont aproved length policy for: IC3XXXXXXXXX');
-                
+                //console.log('its phoneNumber dont aproved length policy for: IC3XXXXXXXXX');
+                //return true;
+                others.push(arrayAgenda[i]);
             }
+            //console.log('number ' + number.toString());
 
         };
+        console.log('number2 ' + number.toString());
+
         return number;
 
 

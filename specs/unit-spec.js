@@ -1,7 +1,7 @@
 var utilidades = require("../api/utilities/Utils");
 
 describe("Utils func Test", function () {
-  it("retrn a object", function () {
+  it("return a object (with interCode and phoneNumber atributes)", function () {
   	var foo = {
         interCode: '+57',
         phoneNumber: '3213214455'
@@ -9,18 +9,17 @@ describe("Utils func Test", function () {
     var product = utilidades.phoneSplit('+573213214455');
     expect(product).toEqual(foo);
     expect(product).not.toBeNull();
-    //expect(product).not.toThrow();
   });
 
-  it("retrn a array of numbers", function () {
-  	var array = ['573155397722', '673123456789'];
+  it("return a array of numbers (in this test, array not be null, Contain 3155397722)", function () {
+  	var array = "'573155397724', '573155397723', '573155397722', '673123456789'";
 
     var arrayreturned = utilidades.convertString(array);
     console.log(arrayreturned);
-   // expect(function () { utilidades.convertString(array); }).toThrowError(Error);
-    //expect(arrayreturned).not.toBeNull();.toBe(b);
+    expect(function () { utilidades.convertString(array); }).not.toThrowError(Error);
+    expect(arrayreturned).not.toBeNull();
     expect(arrayreturned).not.toBe(null);
-    //expect(arrayreturned).toContain('3155397722');
+    expect(arrayreturned).toContain('3155397722');
   });
 
 });
