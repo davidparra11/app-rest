@@ -9,12 +9,16 @@ module.exports = {
             "tab"
         ],
         "quotes": [
-            "error",
-            "double"
+            "warn",
+            "single"
         ],
         "semi": [
             "error",
             "always"
-        ]
+        ],
+        "max-len": [2, 80],
+        "indent": [1, 2, {"SwitchCase": 1}],
+        "no-undefined": [0]
     }
 };
+
