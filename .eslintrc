@@ -2,5 +2,11 @@
 	"extends": [
 		"google",
 		".eslintrc-sails"
-	]
+	],
+	"rules": {
+	"indent": [1, 2, {"SwitchCase": 1}],
+      "quotes": [1, "single"],
+
+	"max-len": [2, 80]
+}
 }

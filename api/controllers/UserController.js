@@ -235,7 +235,7 @@ module.exports = {
                     active: req.param('state')
                 }
             }, {
-                returnOriginal: false,
+                returnOriginal: true,
                 upsert: false
             }, function(err, result) {
                 if (err) {
@@ -332,7 +332,7 @@ module.exports = {
             }, {
                 $set: req.allParams()
             }, {
-                returnOriginal: false,
+                returnOriginal: true,
                 upsert: false
             }, function(err, result) {
                 if (err) {
