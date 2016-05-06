@@ -8,7 +8,7 @@ var utils = require('../utilities/Utils'),
 
 module.exports = {
     //update mobile number.  (recibe parametros id, token)
-    update: function(req, res) {
+    update: function (req, res) {
 
         if (!req.param("id") || !req.param("token")) {
             return res.send(400, "phoneNumber/id Property Missing");
@@ -16,7 +16,7 @@ module.exports = {
         var objId = new ObjectId(req.param('id'));
         var method = "update";
 
-        User.native(function(error, collection) {
+        User.native(function (error, collection) {
             if (error) {
                 utils.showLogs(405, "ERROR", method, controller, error);
                 return res.send(405, {
@@ -47,11 +47,11 @@ module.exports = {
                         return res.send(200, {
                             "message": "OK token updated and success process",
                             "data": [{
-                                        user: r.value
-                                    }]
+                                user: r.value
+                            }]
                         });
                         var instanceId = new gcm.InstanceId(process.env.APPROVED_API_KEY_INSTANCEID);
-                        instanceId.addToTopicNoRetry(r.value.phoneNumber, 'PRUEBAsLzAs:APA91bFtxqP-ugT6KH071q1IQOjSnwWfX9s3uzEOui_Vyq43qrVGfCSOpT5jHG9sQW7a-O8ssMBrru0S04gWV50t80h2KNqGGZ_QUM016-uC2rz1fB4y8nIl_LADOXr-iO_JW2hMxe68', function(err, response) {
+                        instanceId.addToTopicNoRetry(r.value.phoneNumber, 'PRUEBAsLzAs:APA91bFtxqP-ugT6KH071q1IQOjSnwWfX9s3uzEOui_Vyq43qrVGfCSOpT5jHG9sQW7a-O8ssMBrru0S04gWV50t80h2KNqGGZ_QUM016-uC2rz1fB4y8nIl_LADOXr-iO_JW2hMxe68', function (err, response) {
                             if (err) console.error(err);
                             else console.log(response);
                         });

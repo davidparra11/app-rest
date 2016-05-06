@@ -19,7 +19,7 @@ module.exports = {
         var objId = new ObjectId(req.param('id')),
             method = "update",
             codeAndNumber = utils.phoneSplit(req.param('phoneNumber'));
-        User.native(function(error, collection) {
+        User.native(function (error, collection) {
             if (error) {
                 utils.showLogs(404, "ERROR", method, controller, error);
                 return res.send(404, {
@@ -37,7 +37,7 @@ module.exports = {
             }, {
                 returnOriginal: true,
                 upsert: false
-            }, function(err, r) {
+            }, function (err, r) {
                 if (err) {
                     utils.showLogs(404, "ERROR", method, controller, err);
                     return res.send(404, {
@@ -52,7 +52,7 @@ module.exports = {
                         "data": r.value.username
                     });
                     var instanceId = new gcm.InstanceId(process.env.APPROVED_API_KEY_INSTANCEID);
-                    instanceId.addToTopicNoRetry(r.value.phoneNumber, 'cEyLywsLzAs:APA91bFtxqP-ugT6KH071q1IQOjSnwWfX9s3uzEOui_Vyq43qrVGfCSOpT5jHG9sQW7a-O8ssMBrru0S04gWV50t80h2KNqGGZ_QUM016-uC2rz1fB4y8nIl_LADOXr-iO_JW2hMxe68', function(err, response) {
+                    instanceId.addToTopicNoRetry(r.value.phoneNumber, 'cEyLywsLzAs:APA91bFtxqP-ugT6KH071q1IQOjSnwWfX9s3uzEOui_Vyq43qrVGfCSOpT5jHG9sQW7a-O8ssMBrru0S04gWV50t80h2KNqGGZ_QUM016-uC2rz1fB4y8nIl_LADOXr-iO_JW2hMxe68', function (err, response) {
                         if (err) console.error(err);
                         else console.log(response);
                     });
@@ -71,14 +71,14 @@ module.exports = {
 
         var agenda = utils.convertString(req.param('agenda'));
 
-        User.native(function(error, collection) {
+        User.native(function (error, collection) {
             if (error) return res.serverError(error);
             collection.find({
                     phoneNumber: {
                         $in: agenda
                     }
                 })
-                .toArray(function(error, user) {
+                .toArray(function (error, user) {
                     if (error) {
                         utils.showLogs(404, "ERROR", method, controller, error);
                         return res.send(404, {
