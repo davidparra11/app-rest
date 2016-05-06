@@ -31,9 +31,9 @@ module.exports = {
                     token: req.param('token')
                 }
             }, {
-                returnOriginal: false,
+                returnOriginal: true,
                 upsert: false
-            }, function(err, r) {
+            }, function (err, r) {
                 if (err) {
                     utils.showLogs(403, "ERROR", method, controller, err);
                     return res.send(403, {
@@ -41,11 +41,14 @@ module.exports = {
                         "data": err
                     });
                 } else {
+                    console.log('r ' + r);
                     if (r.length !== 0) {
                         utils.showLogs(200, "OK", method, controller, 0);
                         return res.send(200, {
                             "message": "OK token updated and success process",
-                            "data": r.value.username
+                            "data": [{
+                                        user: r.value
+                                    }]
                         });
                         var instanceId = new gcm.InstanceId(process.env.APPROVED_API_KEY_INSTANCEID);
                         instanceId.addToTopicNoRetry(r.value.phoneNumber, 'PRUEBAsLzAs:APA91bFtxqP-ugT6KH071q1IQOjSnwWfX9s3uzEOui_Vyq43qrVGfCSOpT5jHG9sQW7a-O8ssMBrru0S04gWV50t80h2KNqGGZ_QUM016-uC2rz1fB4y8nIl_LADOXr-iO_JW2hMxe68', function(err, response) {
@@ -62,6 +65,5 @@ module.exports = {
                 }
             });
         });
-
     }
 }

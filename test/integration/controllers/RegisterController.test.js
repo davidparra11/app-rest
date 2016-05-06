@@ -57,7 +57,7 @@ describe('#friends() method', function() {
     });
 
     it('it show warn because the array has not numbers on Place', function(done) {
-    	var phoneArray = '59179543971, 19561234545, 447951907699, 447951907699, 5212291159955, 5212291159955, 557188754863, 557192555042, 557188754863, 557192555042, 56984846504, 56984846504';
+    	var phoneArray = '59179543971, 19561234545, 557188754863, 557192555042, 56984846504, 56984846504';
      
       request(sails.hooks.http.app)
         .post('/friends/')

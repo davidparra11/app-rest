@@ -72,11 +72,25 @@ describe('UserController', function() {
   describe('#find() method', function() {
     it('finding andrea user', function(done) {
       request(sails.hooks.http.app)
-        .get('/user/')
-        .send({
-          username: 'andrea'
-        })
-        .expect(200, done);
+      .get('/user/?username=andrea')
+      .expect(200, {
+        "message": "User data",
+        "data": [{
+          "username": "andrea",
+          "email": "andrea@utp.com",
+          "encryptedPassword": "$2a$10$l9Pvav6kyn72dVjgEB37gekw3z5EIVqfQaJD/m4aaRNiApE3g7wKi",
+          "lastLoggedIn": "2016-04-29T22:53:14.931Z",
+          "phoneNumber": "3155397723",
+          "interCode": "+57",
+          "firstName": "",
+          "lastName": "",
+          "token": "token_null",
+          "active": true,
+          "imageUser": "http://vignette3.wikia.nocookie.net/the-enigma-corporation/images/0/01/Users-User-icon.png/revision/latest?cb=20140213102228",
+          "id": "5723e5da1d32b6641823f6f6",
+          "gravatarUrl": "https://gravatar.com/avatar/c73cd254b6c0b01a5f14cc7482b165ba"
+        }]
+      }, done);
     });
 
     it('Error finding andrea user', function(done) {
