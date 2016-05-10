@@ -128,15 +128,22 @@ module.exports = {
         });
     },
 
+
+    /**
+     * Adds two numbers
+     * @param {String} Id = id of the follower 
+     * @param {String} toFollow(phoneNumber) = number of person to follow
+     * @return {Object} Object of response Status
+     */
     follow: function(req, res) {
 
-        if (!req.param("id") || !req.param("toFollow")) {
-            return res.send(400, "toFollow/id Property Missing");
+        if (!req.param("id") || !req.param("toFollow") || !req.param("phoneNumber")) {
+            return res.send(400, "toFollow/id/phoneNumber Property Missing");
         }
 
         var method = "follow";
         var objId = new ObjectId(req.param('id'));
-        //var phoneNum = req.param('phoneNumber');
+        var phoneNum = req.param('phoneNumber');
         var toFollow = req.param('toFollow');
         var instanceId = new gcm.InstanceId(process.env.APPROVED_API_KEY_INSTANCEID);
 
@@ -163,7 +170,7 @@ module.exports = {
 
                 console.log('result.token' + result);
                 if (result.length !== 0) {
-                    instanceId.addToTopicNoRetry(phoneNumber, result.token, function(err, response) {
+                    instanceId.addToTopicNoRetry(phoneNum, result.token, function(err, response) {
                         if (err) {
                             utils.showLogs(404, "ERROR", method, controller, error);
                             return res.send(404, {
@@ -174,7 +181,7 @@ module.exports = {
                     });
 
 
-                    User.findOne(req.param('id')).populate('friend').exec(function(err, usuario) {
+                    User.findOne(req.param('id')).populate('friend').exec(function(err, collection) {
                         if (err) {
                             utils.showLogs(404, "ERROR", method, controller, error);
                             return res.send(404, {
@@ -182,16 +189,16 @@ module.exports = {
                                 "data": error
                             });
                         } // handle error
-                        
+
 
                         // Queue up a new pet to be added and a record to be created in the join table
-                        usuario.friend.add({
+                        collection.friend.add({
                             followerId: objId,
                             friendId: result[0]._id
                         });
 
                         // Save the user, creating the new pet and associations in the join table
-                        usuario.save(function(err, respuesta) {
+                        collection.save(function(err, respuesta) {
                             if (err) {
                                 utils.showLogs(404, "ERROR", method, controller, err);
                                 return res.send(404, {
@@ -224,61 +231,3 @@ module.exports = {
 
     }
 };
-
-
-
-/*
-Friends.native(function (error, collection) {
-            if (error) return res.serverError(error);
-            collection.find({
-                    phoneNumber: {
-                        $in: agenda
-                    }
-                })
-                .toArray(function (error, user) {
-                    if (error) {
-                        utils.showLogs(404, "ERROR", method, controller, error);
-                        return res.send(404, {
-                            "message": "Error finding users array",
-                            "data": error
-                        });
-                    }
-                    if (user.length == 0) {
-                        console.log(user);
-
-                        utils.showLogs(409, "WARNING", method, controller, 0);
-                        return res.send(409, {
-                            "message": "It´s posible nothing recived number exits on Place",
-                            "data": [{
-                                phoneNumber: user
-                            }]
-                        });
-                    } else {
-                        var friedsToDevices = [];
-                        var friendsTokens = [];
-                        var friendsDictionary = [];
-                        var i = 0;
-                        for (i = 0; i < user.length; i++) {
-                            var onlyNumber = user[i].phoneNumber.split(" ");
-                            friedsToDevices.push(user[i].phoneNumber);
-                            friendsTokens.push(user[i].token);
-                            friendsDictionary.push({
-                                'username': user[i].username,
-                                'token': user[i].token,
-                                'phoneNumber': user[i].phoneNumber,
-                                'imageUser': user[i].imageUser
-                            });
-                        }
-                        console.log('getFriends' + friedsToDevices);
-
-                        utils.showLogs(200, "OK", method, controller, 0);
-                        return res.send(200, {
-                            "message": "OK",
-                            "data": friedsToDevices
-                        });
-                    }
-
-                });
-        });
-
-*/
