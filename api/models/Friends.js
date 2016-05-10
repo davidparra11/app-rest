@@ -27,7 +27,7 @@ module.exports = {
 
         relations: {
       		collection: 'user',
-      		via: 'friends'
+      		via: 'friend'
    		 }
 
         

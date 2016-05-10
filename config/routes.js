@@ -95,6 +95,13 @@ module.exports.routes = {
         action: 'getFriends'
     },
 
+
+    // recursos para giardar en bases de datos la reacion de amigos cuando una persona desea seguir a otra(RegisterController).
+    'put /follow/': {
+        controller: 'RegisterController',
+        action: 'follow'
+    },
+
     // recursos para  actualizar el token de una persona en especifico.
     'put /token/': {
         controller: 'TokenController',
