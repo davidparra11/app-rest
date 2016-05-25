@@ -97,8 +97,15 @@ module.exports.routes = {
 
 
     // recursos para giardar en bases de datos la reacion de amigos cuando una persona desea seguir a otra(RegisterController).
-    'put /follow/': {
+    'post /follows/': {
         controller: 'RegisterController',
+        action: 'follow'
+    },
+
+
+    // recursos para giardar en bases de datos la reacion de amigos cuando una persona desea seguir a otra(RegisterController).
+    'put /follow/': {
+        controller: 'FriendController',
         action: 'follow'
     },
 
