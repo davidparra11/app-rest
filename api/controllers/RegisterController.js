@@ -5,8 +5,7 @@
 var gcm = require('node-gcm-iid'),
     controller = "Registercontroller",
     ObjectId = require('sails-mongo/node_modules/mongodb').ObjectID,
-    utils = require('../utilities/Utils'),
-    Friends = require('../models/Friends');
+    utils = require('../utilities/Utils');
 
 //make it just when the account has been verified with text message. params: (id, phoneNumber)
 module.exports = {
@@ -146,9 +145,6 @@ module.exports = {
         var phoneNum = req.param('phoneNumber');
         var toFollow = req.param('toFollow');
         var instanceId = new gcm.InstanceId('AIzaSyCTj1R9ALophNp_4XMkHAJABxUER1Z3Bzc');
-        var objId = new ObjectId(req.param('id'));
-
-
         User.native(function(error, collection) {
             if (error) {
                 utils.showLogs(404, "ERROR", method, controller, error);
@@ -173,7 +169,7 @@ module.exports = {
                             phoneNumber: phoneNum
                         }
                     }).limit(1).exec(function(err, usuario) {
-                        console.log('usuario ' + JSON.stringify(usuario));
+                        
                         if (usuario.length !== 0) {
                             usuario[0].friend.push(toFollow);
                             usuario[0].save(function(err, resp) {
@@ -185,7 +181,8 @@ module.exports = {
                                         "data": err
                                     });
                                 } else {
-                                    instanceId.addToTopicNoRetry('topicualquieras', 'f67sRWiGXxU:APA91bFNyIA2Wpfo_0gfS33hIYSEa3-p-Qyaf5BSyBdZ6tRjAJbGmBf5XlWYBhsOhQUUit6Avwu5HASylol0l930raune0cAb14GlI2eIZy-i_R98fccv8sXenlvSzDrSCeWqdYVVAgk',
+                                    console.log('usuario.token ' + JSON.stringify(result[0].token));
+                                    instanceId.addToTopicNoRetry(phoneNum, result[0].token,
                                         function(err, responses) {
                                             if (err) {
                                                 console.log('error instance id');

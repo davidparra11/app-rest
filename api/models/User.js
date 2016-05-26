@@ -82,11 +82,6 @@ module.exports = {
             defaultsTo: 'http://vignette3.wikia.nocookie.net/the-enigma-corporation/images/0/01/Users-User-icon.png/revision/latest?cb=20140213102228'
         },
 
-        friends: {
-            collection: 'friend',
-            via: 'relations'           
-        },
-
         friend: {
             type: 'array'          
         },
