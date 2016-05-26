@@ -146,34 +146,85 @@ module.exports = {
         var phoneNum = req.param('phoneNumber');
         var toFollow = req.param('toFollow');
         var instanceId = new gcm.InstanceId('AIzaSyCTj1R9ALophNp_4XMkHAJABxUER1Z3Bzc');
+        var objId = new ObjectId(req.param('id'));
 
 
-
-        instanceId.addToTopicNoRetry('topicualquiera', 'f67sRWiGXxU:APA91bFNyIA2Wpfo_0gfS33hIYSEa3-p-Qyaf5BSyBdZ6tRjAJbGmBf5XlWYBhsOhQUUit6Avwu5HASylol0l930raune0cAb14GlI2eIZy-i_R98fccv8sXenlvSzDrSCeWqdYVVAgk',
-            function(err, responses) {
+        User.native(function(error, collection) {
+            if (error) {
+                utils.showLogs(404, "ERROR", method, controller, error);
+                return res.send(404, {
+                    "message": "Error getting user",
+                    "data": error
+                });
+            }
+            collection.find({
+                phoneNumber: toFollow
+            }).toArray(function(err, result) {
                 if (err) {
-                    console.log('error instance id');
                     utils.showLogs(404, "ERROR", method, controller, err);
                     return res.send(404, {
-                        "message": "Error adding token user",
+                        "message": "Error to find user with phoneNumber on our databases",
                         "data": err
                     });
+                }
+
+
+                console.log('result.token ' + JSON.stringify(result));
+                if (result.length !== 0) {
+                    /*  instanceId.addToTopicNoRetry(phoneNum, result.token, function(err, response) {
+                          if (err) {
+                              utils.showLogs(404, "ERROR", method, controller, error);
+                              return res.send(404, {
+                                  "message": "Error adding token user",
+                                  "data": error
+                              });
+                          }
+                      });*/
+                    //{id: req.param('id')}
+
+
+
+                    User.find({username: 'test1531'}).exec(function(err, usuario) {
+                        console.log('usuario ' + JSON.stringify(usuario));
+                        usuario[0].friend.push('123');
+                        usuario[0].save(function(err, resp) {
+
+                            if (err) {
+                                utils.showLogs(404, "ERROR", method, controller, error);
+                                return res.send(404, {
+                                    "message": "Error finding user to follow",
+                                    "data": err
+                                });
+                            } else {
+                                utils.showLogs(200, "ERROR", method, controller, 1);
+                                return res.send(404, {
+                                    "message": "ok",
+                                    "data": resp
+                                });
+
+                            }
+
+
+
+                        });
+                    });
+
+
+                    
+
+
+
                 } else {
-                    console.log(responses);
-                    console.log('ok');
-                    utils.showLogs(200, "OK", method, controller, 0);
-                    return res.send(200, {
-                        "message": "friend associations success",
-                        "data": [{
-                            res: inserted
-                        }]
+                    utils.showLogs(400, "WARNING", method, controller, 0);
+                    return res.send(400, {
+                        "message": "Id does not exist",
+                        "data": []
                     });
                 }
             });
+        });
 
 
-
-       
 
     }
 };
