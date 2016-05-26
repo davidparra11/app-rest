@@ -132,7 +132,7 @@ module.exports = {
 
     /**
      * Adds two numbers
-     * @param {String} Id = id of the follower 
+     * @param {String} phoneNumber = phoneNumber of the follower 
      * @param {String} toFollow(phoneNumber) = number of person to follow
      * @return {Object} Object of response Status
      */
@@ -163,68 +163,67 @@ module.exports = {
                 if (err) {
                     utils.showLogs(404, "ERROR", method, controller, err);
                     return res.send(404, {
-                        "message": "Error to find user with phoneNumber on our databases",
+                        "message": "Error to find user with to follow phoneNumber on our databases",
                         "data": err
                     });
                 }
-
-
-                console.log('result.token ' + JSON.stringify(result));
                 if (result.length !== 0) {
-                    /*  instanceId.addToTopicNoRetry(phoneNum, result.token, function(err, response) {
-                          if (err) {
-                              utils.showLogs(404, "ERROR", method, controller, error);
-                              return res.send(404, {
-                                  "message": "Error adding token user",
-                                  "data": error
-                              });
-                          }
-                      });*/
-                    //{id: req.param('id')}
-
-
-
-                    User.find({username: 'test1531'}).exec(function(err, usuario) {
+                    User.find({
+                        where: {
+                            phoneNumber: phoneNum
+                        }
+                    }).limit(1).exec(function(err, usuario) {
                         console.log('usuario ' + JSON.stringify(usuario));
-                        usuario[0].friend.push('123');
-                        usuario[0].save(function(err, resp) {
+                        if (usuario.length !== 0) {
+                            usuario[0].friend.push(toFollow);
+                            usuario[0].save(function(err, resp) {
 
-                            if (err) {
-                                utils.showLogs(404, "ERROR", method, controller, error);
-                                return res.send(404, {
-                                    "message": "Error finding user to follow",
-                                    "data": err
-                                });
-                            } else {
-                                utils.showLogs(200, "ERROR", method, controller, 1);
-                                return res.send(404, {
-                                    "message": "ok",
-                                    "data": resp
-                                });
+                                if (err) {
+                                    utils.showLogs(404, "ERROR", method, controller, error);
+                                    return res.send(404, {
+                                        "message": "Error finding user by his phoneNumber",
+                                        "data": err
+                                    });
+                                } else {
+                                    instanceId.addToTopicNoRetry('topicualquieras', 'f67sRWiGXxU:APA91bFNyIA2Wpfo_0gfS33hIYSEa3-p-Qyaf5BSyBdZ6tRjAJbGmBf5XlWYBhsOhQUUit6Avwu5HASylol0l930raune0cAb14GlI2eIZy-i_R98fccv8sXenlvSzDrSCeWqdYVVAgk',
+                                        function(err, responses) {
+                                            if (err) {
+                                                console.log('error instance id');
+                                                utils.showLogs(404, "ERROR", method, controller, err);
+                                                return res.send(404, {
+                                                    "message": "Error adding token user",
+                                                    "data": err
+                                                });
+                                            } else {
+                                                utils.showLogs(200, "OK", method, controller, 0);
+                                                return res.send(200, {
+                                                    "message": "friend phoneNumber add to array success & token has been relationated with token",
+                                                    "data": [{
+                                                        res: responses
+                                                    }]
+                                                });
+                                            }
+                                        });
+                                }
+                            });
+                        } else {
+                            utils.showLogs(400, "WARNING", method, controller, 0);
+                            return res.send(400, {
+                                "message": "phoneNumber of person who´s using app dont exits",
+                                "data": []
+                            });
 
-                            }
+                        }
 
-
-
-                        });
                     });
-
-
-                    
-
-
-
                 } else {
                     utils.showLogs(400, "WARNING", method, controller, 0);
                     return res.send(400, {
-                        "message": "Id does not exist",
+                        "message": "to follow phoneNumber dont exits",
                         "data": []
                     });
                 }
             });
         });
-
-
-
     }
 };
