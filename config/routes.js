@@ -45,67 +45,33 @@ module.exports.routes = {
      * for configuration options and examples.                                  *
      *                                                                          *
      ***************************************************************************/
-
     //recursos para los usuarios
-    'get /user/': {
-        controller: 'UserController',
-        action: 'find'
-    },
-    //obtiene todos las personas agregadas a la base de datos 
-    'get /users/': {
-        controller: 'UserController',
-        action: 'findAll'
-    },
+    'GET /user/': 'UserController.find',
+    //obtiene todos las personas agregadas a la base de datos
+    'GET /users/': 'UserController.findAll',
     // crea un usuario con todos los atributos que estan establecidos en el modelo User
-    'post /create/': {
-        controller: 'UserController',
-        action: 'create'
-    },
+    'POST /create': 'UserController.create',
     // metodo para loguear el usuario
-    'post /login/': {
-        controller: 'UserController',
-        action: 'login'
-    },
+    'POST /login/': 'UserController.login',
     // elimina el usuario ingresado por su username
-    'delete /users/delete/:_id': {
-        controller: 'UserController',
-        action: 'delete'
-    },
+    'DELETE /users/delete/:_id': 'UserController.delete',
     //desinscribe la persona de la applicacion
-    'put /unsubscribe/': {
-        controller: 'UserController',
-        action: 'unsubscribe'
-    },
+    'PUT /unsubscribe/': 'UserController.unsubscribe',
     // actualiza la persona buscandola por su id
-    'put /update/': {
-        controller: 'UserController',
-        action: 'update'
-    },
+    'PUT /update/': 'UserController.update',
 
     // recursos para la pasarela de registro (RegisterController)
     //actalizar numero de celular
-    'put /phoneNumber/': {
-        controller: 'RegisterController',
-        action: 'update'
-    },
-
+    'PUT /phoneNumber/': 'RegisterController.update',
     // recursos para los comparar los amigos de la agenda con nuestras bases de datos(RegisterController)
-    'post /friends/': {
-        controller: 'RegisterController',
-        action: 'getFriends'
-    },
+    'POST /friends/:id': 'RegisterController.getFriends',
 
 
-    // recursos para giardar en bases de datos la reacion de amigos cuando una persona desea seguir a otra(RegisterController).
-    'post /follows/': {
-        controller: 'RegisterController',
-        action: 'follow'
-    },
+    //recurso para almacenar en un array el id de la persona que sigue a otra en la App
+    'POST /follows/': 'FriendController.follow',
 
     // recursos para  actualizar el token de una persona en especifico.
-    'put /token/': {
-        controller: 'TokenController',
-        action: 'update'
-    },
+    'PUT /token/': 'TokenController.update',
+
 
 };
