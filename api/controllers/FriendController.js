@@ -14,12 +14,12 @@ module.exports = {
      * Adds two numbers
      * @param {String} phoneNumber = phoneNumber of the follower 
      * @param {String} toFollow(phoneNumber) = number of person to follow
-     * @return {Object} Object of response Status
+     * @return {Object} Object of  Status response.
      */
     follow: function(req, res) {
-        var token = 'f67sRWiGXxU:APA91bFNyIA2Wpfo_0gfS33hIYSEa3-p-Qyaf5BSyBdZ6tRjAJbGmBf5XlWYBhsOhQUUit6Avwu5HASylol0l930raune0cAb14GlI2eIZy-i_R98fccv8sXenlvSzDrSCeWqdYVVAgk';
+        
         if (!req.param("toFollow") || !req.param("phoneNumber")) {
-            return res.send(400, "toFollow/phoneNumber Property Missing");
+            return res.send(400, "phoneNumber/id Property Missing");
         }
 
         var method = "follow";
@@ -49,7 +49,7 @@ module.exports = {
                             phoneNumber: phoneNum
                         }
                     }).limit(1).exec(function(err, usuario) {
-                        
+
                         if (usuario.length !== 0) {
                             usuario[0].friend.push(toFollow);
                             usuario[0].save(function(err, resp) {
@@ -63,7 +63,7 @@ module.exports = {
                                 } else {
                                     console.log('usuario.token ' + JSON.stringify(result[0].token));
                                     topicHandle.addTokenToTopic('test', result[0].token, utils, res, method, controller);
-                                    
+
                                 }
                             });
                         } else {

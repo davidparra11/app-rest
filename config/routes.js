@@ -64,11 +64,11 @@ module.exports.routes = {
     //actalizar numero de celular
     'PUT /phoneNumber/': 'RegisterController.update',
     // recursos para los comparar los amigos de la agenda con nuestras bases de datos(RegisterController)
-    'POST /friends/:id': 'RegisterController.getFriends',
+    'POST /friends/': 'RegisterController.getFriends',
 
 
     //recurso para almacenar en un array el id de la persona que sigue a otra en la App
-    'POST /follows/': 'FriendController.follow',
+    'PUT /follows/': 'FriendController.follow',
 
     // recursos para  actualizar el token de una persona en especifico.
     'PUT /token/': 'TokenController.update',

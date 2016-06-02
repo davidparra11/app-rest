@@ -76,5 +76,21 @@ module.exports = {
 
         return codeNumber;
     },
+
+    /**
+     initail validation from a method of some controller.
+     data   = phoneNumber
+     return = {interCode: codeInternational,
+                        phoneNumber: phone}
+     **/
+    doubleValidator: function(data1, data2, res) {
+
+       if (!data1 || !data2) {
+            return res.send(400, "Some Property Missing");
+            return false;
+        }else{
+            return true;
+        }
+    },
 }
 
