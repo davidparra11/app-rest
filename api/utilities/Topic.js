@@ -15,13 +15,13 @@ module.exports = {
                                         function(err, responses) {
                                             if (err) {
                                                 console.log('error instance id');
-                                                utils.showLogs(404, "ERROR", method, controller, err);
+                                              //  utils.showLogs(404, "ERROR", method, controller, err);
                                                 return res.send(404, {
                                                     "message": "Error adding token user",
                                                     "data": err
                                                 });
                                             } else {
-                                                utils.showLogs(200, "OK", method, controller, 0);
+                                              //  utils.showLogs(200, "OK", method, controller, 0);
                                                 return res.send(200, {
                                                     "message": "friend phoneNumber add to array success & token has been relationated with token",
                                                     "data": [{
