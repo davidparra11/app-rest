@@ -32,28 +32,14 @@ describe("Utils func Test", function() {
 describe("Topic func Test", function() {
     it("return a object (with interCode and phoneNumber atributes)", function() {
         
-        request.post({
+        request.get({
             url: 'http://httpbin.org/get'
         }, function(err, res) {
-           prueba = res });
+         var  prueba = res; 
         var topicNoRetry = topics.addTokenToTopic('topictest', 'tokenTest', utilidades, prueba, 'testMethod', 'controllerMethod');
         expect(topicNoRetry).not.toThrow();
         expect(topicNoRetry).not.toBeNull(); 
-    
     });
-
-    /*   it("return a array of numbers (in this test, array not be null, Contain 3155397722)", function () {
-        var array = "'573155397724', '573155397723', '573155397722', '673123456789'";
-
-        var arrayreturned = utilidades.convertString(array);
-        console.log(arrayreturned);
-        expect(function () {
-            utilidades.convertString(array);
-        }).not.toThrowError(Error);
-        expect(arrayreturned).not.toBeNull();
-        expect(arrayreturned).not.toBe(null);
-        expect(arrayreturned).toContain('3155397722');
     });
-*/
 
 });
