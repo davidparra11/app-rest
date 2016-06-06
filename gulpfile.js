@@ -73,7 +73,7 @@ gulp.task('unitest', ['pre-test'], function() {
         // Enforce a coverage of at least 90%
         .pipe(istanbul.enforceThresholds({
             thresholds: {
-                global: 10
+                global: 15
             }
         }));
 });

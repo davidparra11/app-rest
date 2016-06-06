@@ -31,15 +31,10 @@ describe("Utils func Test", function() {
 
 describe("Topic func Test", function() {
     it("return a object (with interCode and phoneNumber atributes)", function() {
-        
-        request.get({
-            url: 'http://httpbin.org/get'
-        }, function(err, res) {
-         var  prueba = res; 
-        var topicNoRetry = topics.addTokenToTopic('topictest', 'tokenTest', utilidades, prueba, 'testMethod', 'controllerMethod');
-        expect(topicNoRetry).not.toThrow();
-        expect(topicNoRetry).not.toBeNull(); 
-    });
+        var topicNoRetry = topics.addTokenToTopic('topictest', 'tokenTest', utilidades, null, 'testMethod', 'controllerMethod');
+        console.log('topicNoRetry ' + JSON.stringify(topics));
+        expect(topicNoRetry).toBe.undefined;
+        expect(topics).not.toBeNull();
     });
 
 });
