@@ -70,3 +70,6 @@ describe('#friends() method', function() {
         });
     });
   });
+
+
+
