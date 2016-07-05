@@ -87,7 +87,6 @@ describe('UserController', function () {
                         "active": true,
                         "imageUser": "http://vignette3.wikia.nocookie.net/the-enigma-corporation/images/0/01/Users-User-icon.png/revision/latest?cb=20140213102228",
                         "id": "5723e5da1d32b6641823f6f6",
-                        "gravatarUrl": "https://gravatar.com/avatar/c73cd254b6c0b01a5f14cc7482b165ba"
                     }]
                 }, done);
         });
