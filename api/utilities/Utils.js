@@ -33,42 +33,6 @@ module.exports = {
     convertString: function(data) {
         console.log('data stringify ' + JSON.stringify(data));
         console.log('DATA ' + data);
-        var arrayAgenda = data.toString().split(", ");
-        console.log('array Agenda ' + arrayAgenda);
-        console.log('array Agenda [0] ' + arrayAgenda[0]);
-        console.log('array Agenda [1] length ' + arrayAgenda[1].length);
-        var number = [];
-        var others = [];
-        var i = 0;
-        for (i = 0; i < arrayAgenda.length; i++) {
-            if (arrayAgenda[i].length == 12) {
-                number.push(arrayAgenda[i]);
-            } else if (arrayAgenda[i].length == 14) {
-                var only10 = arrayAgenda[i].substr(3, 10);
-                number.push(only10);
-            } else {
-                //console.log('its phoneNumber dont aproved length policy for: IC3XXXXXXXXX');
-                //return true;
-                others.push(arrayAgenda[i]);
-            }
-            //console.log('number ' + number.toString());
-
-        };
-        console.log('number2 ' + number.toString());
-
-        return number;
-
-
-    },
-
-    /**
-    Function that captures req.params String [] from ios Devices and return an array of characters
- data   = char1,char2,charN  //array of character which are retrived like aagenda phone numbers from device.
- return = [array of numbers]
- **/
-    convertStringIos: function(data) {
-        console.log('data stringify ' + JSON.stringify(data));
-        console.log('DATA ' + data);
         var arrayAgenda = data.toString().split(",");
         console.log('array Agenda ' + arrayAgenda);
         console.log('array Agenda [0] ' + arrayAgenda[0]);

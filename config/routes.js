@@ -65,8 +65,7 @@ module.exports.routes = {
     'PUT /phoneNumber/': 'RegisterController.update',
     // recursos para los comparar los amigos de la agenda con nuestras bases de datos(RegisterController)
     'POST /friends/': 'RegisterController.getFriends',
-    // recursos para los comparar los amigos de la agenda de los dispositivos Ios con nuestras bases de datos(RegisterController)
-    'POST /friendsIos/': 'RegisterController.getFriendsIos',
+
 
 
     //recurso para almacenar en un array el id de la persona que sigue a otra en la App
