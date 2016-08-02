@@ -31,7 +31,8 @@ module.exports = {
  return = [array of numbers]
  **/
     convertString: function(data) {
-
+        console.log('data stringify ' + JSON.stringify(data));
+        console.log('DATA ' + data);
         var arrayAgenda = data.toString().split(", ");
         console.log('array Agenda ' + arrayAgenda);
         console.log('array Agenda1 ' + arrayAgenda[0]);
