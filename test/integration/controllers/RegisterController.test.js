@@ -46,7 +46,7 @@ describe('#update() method  (phoneNumber)', function() {
 describe('#friends() method', function() {
 
     it('it array has a phone at Place', function(done) {
-    	var phoneArray = "'573155397724', '573155397723', '573155397722', '673123456789'";
+    	var phoneArray = "'573155397724','573155397723','573155397722','673123456789'";
       request(sails.hooks.http.app)
         .post('/friends/')
         .send({
