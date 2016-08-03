@@ -67,6 +67,7 @@ module.exports.routes = {
     'POST /friends/': 'RegisterController.getFriends',
 
 
+
     //recurso para almacenar en un array el id de la persona que sigue a otra en la App
     'PUT /follows/': 'FriendController.follow',
 

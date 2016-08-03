@@ -31,11 +31,12 @@ module.exports = {
  return = [array of numbers]
  **/
     convertString: function(data) {
-
-        var arrayAgenda = data.toString().split(", ");
+        console.log('data stringify ' + JSON.stringify(data));
+        console.log('DATA ' + data);
+        var arrayAgenda = data.toString().split(",");
         console.log('array Agenda ' + arrayAgenda);
-        console.log('array Agenda1 ' + arrayAgenda[0]);
-        console.log('array Agenda1 length ' + arrayAgenda[1].length);
+        console.log('array Agenda [0] ' + arrayAgenda[0]);
+        console.log('array Agenda [1] length ' + arrayAgenda[1].length);
         var number = [];
         var others = [];
         var i = 0;
@@ -59,6 +60,7 @@ module.exports = {
 
 
     },
+
     /**
      Function that captures req.param("phoneNumber") String and return a  split varible on code & phone
      data   = phoneNumber
